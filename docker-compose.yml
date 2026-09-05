@@ -13,10 +13,15 @@ services:
           cpus: '0.25'
           memory: 512M
 
-  tunnel:
-    image: cloudflare/cloudflared:latest
-    container_name: animecix-tunnel
+  ngrok:
+    image: ngrok/ngrok:latest
+    container_name: animecix-ngrok
     restart: unless-stopped
-    command: tunnel --no-autoupdate --url http://animecix-addon:7000
+    command:
+      - "http"
+      - "--url=nineteen-unwritten-similarly.ngrok-free.dev"
+      - "animecix-addon:7000"
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
     depends_on:
       - animecix-addon
