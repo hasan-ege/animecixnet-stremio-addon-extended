@@ -5,7 +5,7 @@ const catalogs = require('./catalogs.json');
 const { saveKnownTitle } = require('./search');
 const NodeCache = require('node-cache');
 
-const browseCache = new NodeCache({ stdTTL: 60 * 60, maxKeys: 100, checkperiod: 300 }); // 1 saat önbellek, max 100
+const browseCache = new NodeCache({ stdTTL: 60 * 60, checkperiod: 300 }); // 1 saat önbellek
 
 const { signer } = require('./signer');
 

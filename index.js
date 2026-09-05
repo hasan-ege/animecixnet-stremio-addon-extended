@@ -30,7 +30,7 @@ const axios = setupCache(instance);
 
 calendarService.initCalendarService();
 
-const myCache = new NodeCache({ stdTTL: 30 * 60, maxKeys: 300, checkperiod: 120 });
+const myCache = new NodeCache({ stdTTL: 30 * 60, checkperiod: 120 });
 
 /**
  * Türkçe başlık düzeni (Bağlaçlar hariç her kelimenin ilk harfi büyük).
@@ -141,7 +141,7 @@ app.use((req, res, next) => {
 });
 
 // Altyazı URL eşleşmeleri için sınırlı bellek önbelleği
-const subsCache = new NodeCache({ stdTTL: 2 * 60 * 60, maxKeys: 300, checkperiod: 300 });
+const subsCache = new NodeCache({ stdTTL: 2 * 60 * 60, checkperiod: 300 });
 
 var respond = function (res, data) {
     res.setHeader('Access-Control-Allow-Origin', '*');

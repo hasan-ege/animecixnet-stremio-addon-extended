@@ -9,11 +9,15 @@ const axios = setupCache(instance);
 
 
 const NodeCache = require("node-cache");
-const knownTitles = new NodeCache({ stdTTL: 6 * 60 * 60, maxKeys: 500, checkperiod: 300 }); // 6 saat sakla, max 500 başlık
+const knownTitles = new NodeCache({ stdTTL: 6 * 60 * 60, checkperiod: 300 }); // 6 saat TTL, otomatik süresi dolanları temizle
 
 function saveKnownTitle(titleObj) {
     if (titleObj && titleObj.id) {
-        knownTitles.set(Number(titleObj.id), titleObj);
+        try {
+            knownTitles.set(Number(titleObj.id), titleObj);
+        } catch (e) {
+            // Önbellek hatası akışı asla bozmamalı
+        }
     }
 }
 

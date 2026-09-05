@@ -2,7 +2,7 @@ const Axios = require('axios');
 const header = require('../header');
 const NodeCache = require('node-cache');
 
-const homeCache = new NodeCache({ stdTTL: 15 * 60, maxKeys: 50, checkperiod: 120 }); // 15 dakika önbellek, max 50
+const homeCache = new NodeCache({ stdTTL: 15 * 60, checkperiod: 120 }); // 15 dakika önbellek
 const { saveKnownTitle } = require('./search');
 const { signer } = require('./signer');
 
