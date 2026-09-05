@@ -1,7 +1,7 @@
 require("dotenv").config()
 const manifest = {
     id: 'animecix-stremio-addon',
-    version: '1.2.3',
+    version: '1.4.1',
     name: 'AnimeciX',
     description: "AnimeciX'ten türkçe altyazılı animeleri stremionuza getirir.",
     contactEmail: "eyup.elitass@gmail.com",
@@ -10,16 +10,74 @@ const manifest = {
     behaviorHints: {
 
     },
-    stremioAddonsConfig: {
-        issuer: "https://stremio-addons.net",
-        signature: "eyJhbGciOiJkaXIiLCJlbmMiOiJBMTI4Q0JDLUhTMjU2In0..FwRMeGBJ-D4C5P9YX-fvmA.K4APoyEYWX8WooZied9QGpOUpluQXtN7gSfNHsqZSUJ01UVZYnqmIDXBPOD-5TYVlP1uuDZT8375zCWp1zay0sDCma2bNLKEiJbUWzL85SeWu4GPxdqBIQe1sLlEyZaI.jPEXACRF1RKZgJYh0EhTQA"
-    },
     config: [{
         key: "animecix",
         type: "select",
         required: false
     }],
-    catalogs: [{
+    catalogs: [
+    {
+        type: "series",
+        id: "animecix_takvim",
+        name: "Yayın Takvimi",
+        extra: [{
+            name: "genre",
+            isRequired: false,
+            options: [
+                "Bugün",
+                "Pazartesi",
+                "Salı",
+                "Çarşamba",
+                "Perşembe",
+                "Cuma",
+                "Cumartesi",
+                "Pazar",
+                "Tüm Hafta"
+            ]
+        }, {
+            name: "search",
+            isRequired: false
+        }],
+        genres: [
+            "Bugün",
+            "Pazartesi",
+            "Salı",
+            "Çarşamba",
+            "Perşembe",
+            "Cuma",
+            "Cumartesi",
+            "Pazar",
+            "Tüm Hafta"
+        ]
+    },
+    {
+        type: "series",
+        id: "animecix_son_cikanlar",
+        name: "AnimeciX - Son Çıkanlar",
+        extra: [{
+            name: "search",
+            isRequired: false
+        }]
+    },
+    {
+        type: "series",
+        id: "animecix_sezonun_incileri",
+        name: "AnimeciX - Sezonun İncileri",
+        extra: [{
+            name: "search",
+            isRequired: false
+        }]
+    },
+    {
+        type: "series",
+        id: "animecix_en_iyiler",
+        name: "AnimeciX - En Yüksek Puanlılar",
+        extra: [{
+            name: "search",
+            isRequired: false
+        }]
+    },
+    {
         type: "series",
         id: "animecix",
         name: "AnimeciX Dizileri",
@@ -71,6 +129,9 @@ const manifest = {
                 "Yuri",
                 "Yaoi"
             ]
+        }, {
+            name: "skip",
+            isRequired: false
         }],
         genres: [
             "Dram",
@@ -167,6 +228,9 @@ const manifest = {
                 "Yuri",
                 "Yaoi"
             ]
+        }, {
+            name: "skip",
+            isRequired: false
         }],
         genres: [
             "Dram",

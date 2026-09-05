@@ -133,52 +133,8 @@ body {
    margin: 22px 0;
 }
 
-.captcha-box {
-   background: rgba(255,255,255,0.04);
-   border: 1px solid rgba(255,255,255,0.08);
-   border-radius: 12px;
-   padding: 20px 22px;
-   margin-bottom: 22px;
-}
 
-.captcha-box label {
-   display: block;
-   font-size: 11px;
-   font-weight: 600;
-   text-transform: uppercase;
-   letter-spacing: 1px;
-   color: rgba(255,255,255,0.45);
-   margin-bottom: 10px;
-}
 
-.captcha-box p {
-   font-size: 15px;
-   font-weight: 600;
-   color: #fff;
-   margin-bottom: 14px;
-}
-
-.captcha-box input[type="text"] {
-   width: 100%;
-   padding: 10px 14px;
-   border-radius: 8px;
-   border: 1px solid rgba(255,255,255,0.15);
-   background: rgba(255,255,255,0.07);
-   color: #fff;
-   font-size: 14px;
-   font-family: inherit;
-   outline: none;
-   transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.captcha-box input[type="text"]:focus {
-   border-color: rgba(138,90,171,0.7);
-   box-shadow: 0 0 0 3px rgba(138,90,171,0.2);
-}
-
-.captcha-box input[type="text"]::placeholder {
-   color: rgba(255,255,255,0.3);
-}
 
 .alert-box {
    display: flex;
@@ -240,6 +196,8 @@ button#install:disabled {
    opacity: 0.4;
    cursor: not-allowed;
 }
+
+
 
 .addon-footer {
    border-top: 1px solid rgba(255,255,255,0.07);
@@ -352,6 +310,7 @@ function landingTemplate(manifest) {
                <div class="chip"><span class="dot"></span> Filmler</div>
                <div class="chip"><span class="dot"></span> Diziler</div>
                <div class="chip"><span class="dot"></span> Animeler</div>
+               <div class="chip"><span class="dot"></span> 📅 Yayın Takvimi</div>
             </div>
 
             <div class="alert-box">
@@ -359,14 +318,8 @@ function landingTemplate(manifest) {
                <span>Stremio'nun web sürümünü kullanıyorsanız arka planda Stremio uygulaması veya servisi çalışıyor olmalıdır.</span>
             </div>
 
-            <div class="captcha-box">
-               <label>Bot Koruması</label>
-               <p>Türkiye'nin başkenti neresidir?</p>
-               <input type="text" id="soru" placeholder="Cevabınızı yazın..." autocomplete="off" required>
-            </div>
-
             <a id="installLink" class="install-link" href="#">
-               <button id="install" name="Install" disabled>STREMIO'YA YÜKLE</button>
+               <button id="install" name="Install">STREMIO'YA YÜKLE</button>
             </a>
          </div>
 
@@ -389,22 +342,8 @@ function landingTemplate(manifest) {
 
       </div>
       <script>
-         var soru = document.getElementById("soru");
-         var install = document.getElementById("install");
          var installLink = document.getElementById("installLink");
-
-         soru.addEventListener("input", function() {
-            var val = soru.value.trim().toLowerCase()
-               .replace(/İ/g, 'i').replace(/I/g, 'ı')
-               .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-            if (val === 'ankara') {
-               installLink.href = 'stremio://' + window.location.host + '/addon/manifest.json';
-               install.disabled = false;
-            } else {
-               installLink.href = '#';
-               install.disabled = true;
-            }
-         });
+         installLink.href = 'stremio://' + window.location.host + '/addon/manifest.json';
       </script>
    </body>
    </html>`
