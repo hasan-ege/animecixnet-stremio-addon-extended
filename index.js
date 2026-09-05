@@ -140,23 +140,26 @@ app.get(['/manifest.json', '/addon/manifest.json', '/:userConf/manifest.json'], 
 
 app.get('/debug-test', async (req, res) => {
     const results = {};
-    try {
-        const signH = await signer.getHeader('');
-        const r = await Axios.get('https://animecix.tv/secure/homepage/lists', {
-            headers: { ...header, ...signH },
-            timeout: 8000
-        });
-        results.homepage = { status: r.status, ok: true, listsCount: r.data?.lists?.length };
-    } catch (e) {
-        const dataStr = typeof e.response?.data === 'string' ? e.response.data : JSON.stringify(e.response?.data || '');
-        const titleMatch = dataStr.match(/<title>([^<]+)<\/title>/i);
-        results.homepage = {
-            status: e.response ? e.response.status : null,
-            error: e.message,
-            title: titleMatch ? titleMatch[1] : null,
-            cfRay: e.response?.headers?.['cf-ray'],
-            server: e.response?.headers?.['server']
-        };
+    const domains = ['https://animecix.tv', 'https://anm.cx', 'https://animecix.net'];
+    const signH = await signer.getHeader('');
+
+    for (const d of domains) {
+        try {
+            const r = await Axios.get(`${d}/secure/homepage/lists`, {
+                headers: { ...header, ...signH },
+                timeout: 5000,
+                maxRedirects: 0
+            });
+            results[d] = { status: r.status, ok: true };
+        } catch (e) {
+            const dataStr = typeof e.response?.data === 'string' ? e.response.data : JSON.stringify(e.response?.data || '');
+            const titleMatch = dataStr.match(/<title>([^<]+)<\/title>/i);
+            results[d] = {
+                status: e.response ? e.response.status : null,
+                title: titleMatch ? titleMatch[1] : null,
+                location: e.response?.headers?.['location']
+            };
+        }
     }
     return res.json(results);
 });
