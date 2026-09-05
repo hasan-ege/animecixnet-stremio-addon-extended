@@ -24,6 +24,7 @@ const episodeService = require("./src/episodeService");
 const calendarService = require("./src/calendarService");
 const titleBrowseService = require("./src/titleBrowseService");
 const { signer } = require("./src/signer");
+const { connectionTracker } = require("./src/connectionTracker");
 const instance = Axios.create();
 const axios = setupCache(instance);
 
@@ -114,8 +115,27 @@ app.use((req, res, next) => {
         return res.status(200).end();
     }
 
+    const { isNew, client } = connectionTracker.onStart(req);
+
+    let ended = false;
+    const endReq = () => {
+        if (!ended) {
+            ended = true;
+            connectionTracker.onEnd();
+        }
+    };
+    res.on('finish', endReq);
+    res.on('close', endReq);
+
     if (!req.url.startsWith('/images') && !req.url.startsWith('/subs')) {
-        console.log(`📡 [${req.method}] ${req.url}`);
+        const activeCount = connectionTracker.getActiveCount(5 * 60 * 1000);
+        const inFlight = connectionTracker.activeRequests;
+
+        if (isNew) {
+            console.log(`✨ [Yeni Bağlantı] 🟢 Yeni kullanıcı bağlandı: ${client.maskedIp} (${client.device}) | 👥 Toplam Aktif: ${activeCount}`);
+        }
+
+        console.log(`📡 [${req.method}] ${req.url} — 👥 ${activeCount} aktif kullanıcı | ⚡ ${inFlight} anlık istek`);
     }
     next();
 });
@@ -403,6 +423,16 @@ app.get('/', function (req, res) {
     res.setHeader('Cache-Control', 'no-cache');
     const baseUrl = getBaseUrl(req);
     return res.send(getLandingHTML(MANIFEST, baseUrl));
+});
+
+// Canlı bağlantı ve kullanıcı istatistikleri
+app.get('/stats', function (req, res) {
+    res.setHeader('Cache-Control', 'no-cache');
+    return res.json({
+        status: "online",
+        zaman: new Date().toLocaleTimeString('tr-TR', { timeZone: 'Europe/Istanbul' }),
+        ...connectionTracker.getStats()
+    });
 });
 
 app.get(['/manifest.json', '/addon/manifest.json', '/:userConf/manifest.json'], function (req, res) {

@@ -149,6 +149,7 @@ Gereksinim: **Node.js 18+**
 ├── Dockerfile                # Konteyner derleme talimatları
 ├── .github/workflows/        # Portainer ve GitHub Container Registry (GHCR) CI/CD akışları
 └── src/
+    ├── connectionTracker.js  # Canlı aktif kullanıcı, anlık istek ve cihaz takipçisi
     ├── calendarService.js    # Yayın takvimi veri çekme, önbellekleme ve Stremio meta formatlama
     ├── titleBrowseService.js # 2500+ Dizi & Film arşivinin sayfalanmış katalog servisi
     ├── episodeService.js     # Bölüm listesi ve Türkçe bölüm isimleri çözümleme
@@ -158,6 +159,26 @@ Gereksinim: **Node.js 18+**
     ├── search.js             # Video arama ve detay çözümleme
     └── videos.js             # Oynatma kaynakları ve altyazı stream yönlendirmeleri
 ```
+
+---
+
+## 📊 Canlı Bağlantı ve İstatistik Takibi
+
+Eklenti, bağlanan kullanıcıları ve anlık HTTP isteklerini gerçek zamanlı olarak izler:
+
+- **Canlı Log İzleme:**
+  ```bash
+  docker compose logs -f animecix-addon
+  ```
+  Örnek canlı çıktı:
+  ```text
+  ✨ [Yeni Bağlantı] 🟢 Yeni kullanıcı bağlandı: 78.177.161.*** (Stremio (Windows)) | 👥 Toplam Aktif: 2
+  📡 [GET] /stream/series/0-7696-6-1.json — 👥 2 aktif kullanıcı | ⚡ 1 anlık istek
+  📊 [Canlı Durum] 👥 2 aktif kullanıcı (Son 5 dk: 2, Son 1 dk: 1) | ⚡ 1 anlık istek | 📈 Toplam: 45 istek
+  ```
+
+- **Tarayıcı / API Üzerinden Canlı Durum:**
+  `https://nineteen-unwritten-similarly.ngrok-free.dev/stats` adresine girerek anlık aktif kullanıcı sayısını, bağlanan cihaz türlerini (Windows, Android, Smart TV, Web vb.) ve son yapılan istekleri JSON olarak görebilirsiniz.
 
 ---
 
