@@ -105,6 +105,15 @@ app.use('/images', express.static(path.join(__dirname, "static", "images"), { ma
 app.use('/subs', express.static(path.join(__dirname, "static", "subs"), { maxAge: '1d' }));
 
 app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, HEAD');
+    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader('ngrok-skip-browser-warning', 'true');
+
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
     if (!req.url.startsWith('/images') && !req.url.startsWith('/subs')) {
         console.log(`📡 [${req.method}] ${req.url}`);
     }
