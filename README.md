@@ -38,21 +38,21 @@
 
 ---
 
-## 🚀 Hızlı Kurulum
+## 🚀 Hızlı Kurulum & Canlı Bağlantılar
 
-### 1. Uzak / Yayındaki Sunucu Üzerinden Kurulum
+Eklentiyi Stremio'ya eklemek için aşağıdaki bağlantıları kullanabilirsiniz:
 
-Eğer eklenti bir sunucuda çalışıyorsa, Stremio arama çubuğuna manifest bağlantısını yapıştırmanız yeterlidir:
+### 🔗 Canlı Eklenti URL'leri
 
-```text
-stremio://<SUNUCU_ADRESI>/addon/manifest.json
-```
+| Yöntem | Bağlantı | Açıklama |
+|---|---|---|
+| **🌐 Tek Tıkla Kurulum (Önerilen)** | [https://nineteen-unwritten-similarly.ngrok-free.dev](https://nineteen-unwritten-similarly.ngrok-free.dev) | Tarayıcıda açıldığında Stremio uygulamasını otomatik tetikler ve kurar |
+| **🎬 Stremio Protokolü** | [stremio://nineteen-unwritten-similarly.ngrok-free.dev/manifest.json](stremio://nineteen-unwritten-similarly.ngrok-free.dev/manifest.json) | Masaüstü veya mobil Stremio uygulamasını doğrudan başlatır |
+| **🌍 Stremio Web** | [Stremio Web'de Aç ve Kur](https://web.stremio.com/#/addons?addon=https%3A%2F%2Fnineteen-unwritten-similarly.ngrok-free.dev%2Fmanifest.json) | Tarayıcı tabanlı Stremio Web oynatıcısına doğrudan ekler |
+| **📋 Manifest JSON URL** | `https://nineteen-unwritten-similarly.ngrok-free.dev/manifest.json` | Stremio arama çubuğuna yapıştırarak ekleyebilirsiniz |
 
-Web tarayıcınızdan açmak için:
-```text
-https://<SUNUCU_ADRESI>/
-```
-Sayfadaki **"STREMIO'YA YÜKLE"** butonuna basarak tek tıkla Stremio uygulamanıza ekleyebilirsiniz.
+> [!TIP]
+> `https://nineteen-unwritten-similarly.ngrok-free.dev` adresini tarayıcınızda açtığınızda eklenti otomatik olarak Stremio'ya yönlenir. Açılmazsa sayfadaki **"Stremio ile Kur"** butonuna tıklayabilirsiniz.
 
 ---
 
@@ -97,8 +97,8 @@ Gereksinim: **Node.js 18+**
 
 1. Depoyu klonlayın ve klasöre girin:
    ```bash
-   git clone https://github.com/aflextr/animecixnet-stremio-addon.git
-   cd animecixnet-stremio-addon
+   git clone https://github.com/hasan-ege/animecixnet-stremio-addon-extended.git
+   cd animecixnet-stremio-addon-extended
    ```
 
 2. Bağımlılıkları yükleyin:
@@ -121,7 +121,7 @@ Gereksinim: **Node.js 18+**
 5. Stremio'ya ekleyin:
    Stremio eklenti arama kutusuna şu bağlantıyı yapıştırın:
    ```text
-   http://127.0.0.1:7000/addon/manifest.json
+   http://127.0.0.1:7000/manifest.json
    ```
 
 ---
@@ -142,9 +142,10 @@ Gereksinim: **Node.js 18+**
 ## 📁 Proje Mimarisi
 
 ```text
-├── index.js                  # Express sunucusu, Stremio rota tanımları & katalog yönlendiricisi
+├── index.js                  # Express sunucusu, Stremio rota tanımları, otomatik yönlendirici
 ├── manifest.js               # Stremio Addon manifestosu (kataloglar, türler, versiyon)
 ├── header.js                 # API istekleri için yapılandırılmış başlıklar
+├── docker-compose.yml        # Addon ve Ngrok statik tünel konteyner orkestrasyonu
 ├── Dockerfile                # Konteyner derleme talimatları
 ├── .github/workflows/        # Portainer ve GitHub Container Registry (GHCR) CI/CD akışları
 └── src/
@@ -152,7 +153,7 @@ Gereksinim: **Node.js 18+**
     ├── titleBrowseService.js # 2500+ Dizi & Film arşivinin sayfalanmış katalog servisi
     ├── episodeService.js     # Bölüm listesi ve Türkçe bölüm isimleri çözümleme
     ├── homepage.js           # Son çıkanlar, en iyiler ve sezon incileri katalogları
-    ├── landingTemplate.js    # Eklenti kurulum web sayfası
+    ├── signer.js             # AnimeciX API istek imzalama ve doğrulama servisi
     ├── kitsu.js              # Kitsu meta ve kapak görseli entegrasyonu
     ├── search.js             # Video arama ve detay çözümleme
     └── videos.js             # Oynatma kaynakları ve altyazı stream yönlendirmeleri
