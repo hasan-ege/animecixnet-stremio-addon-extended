@@ -1,6 +1,9 @@
 const { publishToCentral } = require('stremio-addon-sdk')
-require("dotenv").config()
-const searchVideo = require("./src/search")
+require("dotenv").config();
+if (!process.env.HOSTING_URL && process.env.RENDER_EXTERNAL_URL) {
+    process.env.HOSTING_URL = process.env.RENDER_EXTERNAL_URL.replace(/\/+$/, '');
+}
+const searchVideo = require("./src/search");
 const MANIFEST = require('./manifest');
 const videos = require("./src/videos");
 const Path = require("path");
