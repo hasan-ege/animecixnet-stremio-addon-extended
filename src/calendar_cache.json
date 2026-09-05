@@ -1,6 +1,6 @@
 [
   {
-    "date": "2026-08-31T00:00:45.071Z",
+    "date": "2026-08-31T00:00:35.264Z",
     "episodes": [
       {
         "_id": "6a4fc2fc16ec961796276347",
@@ -456,10 +456,10 @@
       {
         "_id": "6a48ce565e0a75eea4820611",
         "id": 283556,
-        "name": "10.Bölüm",
-        "description": null,
+        "name": "Aziz Denemeleri",
+        "description": "Carolina'nın Saintly Duruşmalarında becerilerini sergileme zamanı gelmişti. Orada Flora'yla işler iyi gidecek mi?",
         "translated": false,
-        "poster": null,
+        "poster": "https://image.tmdb.org/t/p/original/dcXUEVTL4tCOHUD7nnEEW9HqqMN.jpg",
         "release_date": "2026-09-01T00:00:00.000Z",
         "title_id": 13439,
         "season_number": 1,
@@ -478,7 +478,7 @@
           "backdrop": "https://image.tmdb.org/t/p/w1280/5JJNvKX3OEJ29If8RQTTaY45nFp.jpg",
           "budget": null,
           "certification": null,
-          "description": "Aziz kız kardeşi Flora'nın gölgesinde kalan sade Carolina, zalim olduğu söylenen bir prensle siyasi evliliği kabul ederek yararlı olma şansını yakalar. Ancak prens hiçbir şey beklendiği gibi değildir; o bir beyefendidir ve Carolina hayatında ilk kez kendisine değer verildiğini hisseder. Carolina çiçek açtıkça kendine değer verme duygusunu ve gizemli bir gücü keşfederken Flora'nın memleketindeki mükemmel hayatı parçalanmaya başlar.",
+          "description": "Overshadowed by her saintly sister Flora, plain Carolina seizes a chance to be useful by agreeing to political marriage with a prince rumored to be cruel. But the prince is nothing as expected—he’s a gentleman, and Carolina feels valued for once in her life. As Carolina blossoms, she discovers a sense of self-worth and a mysterious power, while Flora’s perfect life back home starts to crumble.",
           "episode_count": 14,
           "fully_synced": true,
           "home_video": "https://www.youtube.com/embed/null?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=null",
@@ -513,7 +513,7 @@
           "name_english": "The Oblivious Saint Can't Contain Her Power",
           "name_romanji": "Mujikaku Seijo wa Kyou mo Muishiki ni Chikara wo Tare Nagasu",
           "original_title": "無自覚聖女は今日も無意識に力を垂れ流す",
-          "popularity": 10.3349,
+          "popularity": 9.9606,
           "poster": "https://image.tmdb.org/t/p/original/xrgC96oAFYSSjCysOg8oCAVzVSg.jpg",
           "quick_update": false,
           "release_date": "Tue Jun 30 2026 00:00:00 GMT+0000 (Coordinated Universal Time)",
@@ -572,9 +572,9 @@
           ],
           "locked": false,
           "created_at": "2026-07-04T08:16:19.033Z",
-          "updated_at": "2026-08-29T11:10:21.728Z",
+          "updated_at": "2026-09-05T11:16:27.781Z",
           "allow_update": true,
-          "__v": 8,
+          "__v": 9,
           "model_type": "title",
           "seasons": [
             {
@@ -593,7 +593,7 @@
               "credits": [],
               "disable_update": false,
               "created_at": "2026-07-04T08:16:19.038Z",
-              "updated_at": "2026-08-29T13:39:55.775Z",
+              "updated_at": "2026-09-05T14:04:28.138Z",
               "__v": 0,
               "model_type": "season"
             }
@@ -1288,7 +1288,7 @@
     ]
   },
   {
-    "date": "2026-09-01T00:00:45.071Z",
+    "date": "2026-09-01T00:00:35.264Z",
     "episodes": [
       {
         "_id": "6a8e15b7349ff32b9287719b",
@@ -2131,7 +2131,7 @@
         "_id": "6a5b6598518b4a5c9d49a9ec",
         "id": 284399,
         "name": "Avuç İçi İşareti",
-        "description": null,
+        "description": "Kara Prens Malatya'yı işgal etmiştir, ancak Kail ve Yuri onu yıkmak için şehre girerler.",
         "translated": false,
         "poster": "https://image.tmdb.org/t/p/original/lbv9j0Gc4XG9ZSyaMd7n0VwaHkf.jpg",
         "release_date": "2026-09-02T00:00:00.000Z",
@@ -2352,7 +2352,7 @@
               "credits": [],
               "disable_update": false,
               "created_at": "2026-07-04T08:16:20.352Z",
-              "updated_at": "2026-08-29T12:29:55.411Z",
+              "updated_at": "2026-09-05T12:31:14.665Z",
               "__v": 0,
               "model_type": "season"
             }
@@ -2362,7 +2362,7 @@
     ]
   },
   {
-    "date": "2026-09-02T00:00:45.071Z",
+    "date": "2026-09-02T00:00:35.264Z",
     "episodes": [
       {
         "_id": "6a8f252e73a2aff256ef0d80",
@@ -3938,7 +3938,7 @@
               "title_tmdb_id": 0,
               "allow_update": 1,
               "created_at": null,
-              "episode_count": 9,
+              "episode_count": 10,
               "fully_synced": false,
               "overview": null,
               "credits": [],
@@ -4362,8 +4362,8 @@
       {
         "_id": "6a48d09fb25338c525fb8b05",
         "id": 283573,
-        "name": "10.Bölüm",
-        "description": null,
+        "name": "Taşan Bir Dünya",
+        "description": "Oniyasha ve Zojiro final turu için sahneye çıkar ancak rekabet kimsenin tahmin etmediği bir şekilde sona erecektir.",
         "translated": false,
         "poster": null,
         "release_date": "2026-09-03T00:00:00.000Z",
@@ -4384,7 +4384,7 @@
           "backdrop": "https://image.tmdb.org/t/p/w1280/viXhoiWQbXZiTSTj9NbzDyEEm5Q.jpg",
           "budget": null,
           "certification": null,
-          "description": "1374 yılında, Kuzey ve Güney Sarayları arasında uzun süredir devam eden çatışmanın ortasında, sarugaku tiyatro sanatçılarından oluşan bir ailede Oniyasha adında bir çocuk doğar. Günlerini bir tür sessiz kasvet içinde, basit ama ısrarcı bir sorunun peşini bırakmadan geçiriyor: İnsanlar neden dans eder? Sonra bir gün “iyi” olduğunu düşündüğü bir dansa tanık olur ve her şey değişmeye başlar. Bu, bir gün Noh'un sanatını şekillendirecek ve Zeami olarak anılacak güzel genç çocuğun hikayesidir.",
+          "description": "1374 yılında, Kuzey ve Güney Mahkemeleri arasında uzun süredir devam eden çatışmanın ortasında, Sarugaku tiyatro sanatçılarından oluşan bir ailede Oniyasha adında bir çocuk doğar. Günlerini bir tür sessiz kasvet içinde, basit ama ısrarcı bir sorunun peşini bırakmadan geçiriyor: İnsanlar neden dans eder? Sonra bir gün “iyi” olduğunu düşündüğü bir dansa tanık olur ve her şey değişmeye başlar. Bu, bir gün Noh'un sanatını şekillendirecek ve Zeami olarak anılacak olan güzel genç çocuğun hikayesidir.",
           "episode_count": 13,
           "fully_synced": true,
           "home_video": "https://www.youtube.com/embed/null?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=null",
@@ -4415,7 +4415,7 @@
           "name_english": "The World Is Dancing",
           "name_romanji": "World Is Dancing",
           "original_title": "ワールド イズ ダンシング",
-          "popularity": 28.7881,
+          "popularity": 21.2925,
           "poster": "https://image.tmdb.org/t/p/original/mcxKZoHg7pY2OvlG4IgQv9LBz4H.jpg",
           "quick_update": false,
           "release_date": "Thu Jul 02 2026 00:00:00 GMT+0000 (Coordinated Universal Time)",
@@ -4423,10 +4423,10 @@
           "runtime": null,
           "season_count": 1,
           "series_ended": false,
-          "tagline": "One does not need dance to live.",
+          "tagline": "",
           "title_type": "anime",
           "tmdb_id": 312020,
-          "tmdb_vote_average": 8,
+          "tmdb_vote_average": 7.5,
           "tmdb_vote_count": 2,
           "trailer": "https://www.youtube-nocookie.com/embed/QQBCvRAIP6o?enablejsapi=1&wmode=opaque&autoplay=1",
           "type": "series",
@@ -4542,9 +4542,9 @@
           ],
           "locked": false,
           "created_at": "2026-07-04T08:16:15.067Z",
-          "updated_at": "2026-08-29T13:26:25.221Z",
+          "updated_at": "2026-09-05T14:01:23.812Z",
           "allow_update": true,
-          "__v": 8,
+          "__v": 9,
           "model_type": "title",
           "seasons": [
             {
@@ -4563,7 +4563,7 @@
               "credits": [],
               "disable_update": false,
               "created_at": "2026-07-04T08:16:15.106Z",
-              "updated_at": "2026-08-29T13:26:25.156Z",
+              "updated_at": "2026-09-05T14:01:22.823Z",
               "__v": 0,
               "model_type": "season"
             }
@@ -4829,8 +4829,8 @@
           "name_english": "Hana-Kimi",
           "name_romanji": "Hanazakari no Kimitachi e",
           "original_title": "花ざかりの君たちへ",
-          "popularity": 22.5681,
-          "poster": "https://image.tmdb.org/t/p/original/wCZn0Is62Tx4HC9WuFGYysjeHCx.jpg",
+          "popularity": 19.9701,
+          "poster": "https://image.tmdb.org/t/p/original/hZU0HRRGm9l4iRpUL98cMUogkge.jpg",
           "quick_update": false,
           "release_date": "Sun Jan 04 2026 00:00:00 GMT+0000 (Coordinated Universal Time)",
           "revenue": null,
@@ -4942,9 +4942,9 @@
           ],
           "locked": false,
           "created_at": "2025-12-21T10:24:34.424Z",
-          "updated_at": "2026-08-29T15:03:21.000Z",
+          "updated_at": "2026-09-05T15:05:03.444Z",
           "allow_update": true,
-          "__v": 36,
+          "__v": 37,
           "country": "",
           "views": null,
           "model_type": "title",
@@ -5421,10 +5421,10 @@
       },
       {
         "_id": "6a92d8a6364cc1ecd3a6e871",
-        "name": "Episode 9",
-        "description": "",
+        "name": "Boş Taç",
+        "description": "Araki, farklı rakiplere karşı oynadığı çeşitli oyunlar aracılığıyla yeni takımına alışmaya çalışır.",
         "translated": false,
-        "poster": null,
+        "poster": "https://image.tmdb.org/t/p/original/3KVWMUn1HxRsPGXzkQB4FE1I6Ll.jpg",
         "release_date": "2026-09-03T00:00:00.000Z",
         "title_id": 13441,
         "season_number": 1,
@@ -5483,7 +5483,7 @@
           "name_english": "Mebius Dust",
           "name_romanji": "Mebius Dust",
           "original_title": "メビウス・ダスト",
-          "popularity": 13.0252,
+          "popularity": 11.8812,
           "poster": "https://image.tmdb.org/t/p/original/s0IKZTAn9sbGToaim12YEOTyWde.jpg",
           "quick_update": false,
           "release_date": "Thu Jul 09 2026 00:00:00 GMT+0000 (Coordinated Universal Time)",
@@ -5543,9 +5543,9 @@
           ],
           "locked": false,
           "created_at": "2026-07-04T08:16:22.743Z",
-          "updated_at": "2026-08-29T13:03:26.381Z",
+          "updated_at": "2026-09-05T13:40:20.994Z",
           "allow_update": true,
-          "__v": 8,
+          "__v": 9,
           "model_type": "title",
           "seasons": [
             {
@@ -5558,13 +5558,13 @@
               "anime9_id": 0,
               "title_tmdb_id": 0,
               "allow_update": 1,
-              "episode_count": 9,
+              "episode_count": 10,
               "fully_synced": false,
               "overview": null,
               "credits": [],
               "disable_update": false,
               "created_at": "2026-07-04T08:16:22.748Z",
-              "updated_at": "2026-08-29T13:03:26.183Z",
+              "updated_at": "2026-09-05T13:40:20.150Z",
               "__v": 0,
               "model_type": "season"
             }
@@ -5658,7 +5658,7 @@
     ]
   },
   {
-    "date": "2026-09-03T00:00:45.071Z",
+    "date": "2026-09-03T00:00:35.264Z",
     "episodes": [
       {
         "_id": "6a91dcce16e607cbb92c10b0",
@@ -5908,7 +5908,7 @@
               "title_tmdb_id": 0,
               "allow_update": 1,
               "created_at": null,
-              "episode_count": 10,
+              "episode_count": 11,
               "fully_synced": false,
               "overview": null,
               "credits": [],
@@ -7729,7 +7729,7 @@
     ]
   },
   {
-    "date": "2026-09-04T00:00:45.071Z",
+    "date": "2026-09-04T00:00:35.264Z",
     "episodes": [
       {
         "_id": "6a901e9d804350a5e44b7b51",
@@ -8760,10 +8760,10 @@
       {
         "_id": "69d153fa764db4bcbbb907e0",
         "id": 273602,
-        "name": "22.Bölüm",
-        "description": null,
+        "name": "Kagemori Kardeşler ve Kuroya Kardeşler",
+        "description": "Natsuki, Akio'nun Kagemori klanına neden ihanet ettiğini öğrenmek ister ancak hiçbir açıklama yapmaz.",
         "translated": false,
-        "poster": null,
+        "poster": "https://image.tmdb.org/t/p/original/csPh6V7kocnGDf9iHlWijPqtjMx.jpg",
         "release_date": "2026-09-05T00:00:00.000Z",
         "title_id": 12975,
         "season_number": 1,
@@ -8784,7 +8784,7 @@
           "backdrop": "https://image.tmdb.org/t/p/w1280/qc30hdrxHQgN5wiopU4bkRZow5L.jpg",
           "budget": null,
           "certification": null,
-          "description": "Genç bir avcı olan Yuru, dağların derinliklerindeki küçük bir köyde yaşıyor, yabani hayvanları avlıyor ve ikiz kız kardeşi Asa ile mütevazı bir hayat sürüyor. Huzurlu hayatları, bir ejderhanın kükremesinin gökyüzünde yankılanmasıyla paramparça olur. Köylerinde hangi sırlar gizleniyor? Onları nasıl bir kader bekliyor?",
+          "description": "Yuru, a young hunter, lives in a small village deep in the mountains, hunting wild game and leading a humble life with Asa, his younger twin sister. Their peaceful lives are torn apart when a dragon’s roar echoes across the sky. What secrets lurk within their village? What fate awaits them?",
           "episode_count": 24,
           "fully_synced": true,
           "home_video": "https://www.youtube.com/embed/null?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=null",
@@ -8819,7 +8819,7 @@
           "name_english": "Daemons of the Shadow Realm",
           "name_romanji": "Yomi no Tsugai",
           "original_title": "黄泉のツガイ",
-          "popularity": 33.9345,
+          "popularity": 36.5281,
           "poster": "https://image.tmdb.org/t/p/original/vIE1llfr1lcmzlsV4xn8vhgtlQN.jpg",
           "quick_update": false,
           "release_date": "Sat Apr 04 2026 00:00:00 GMT+0000 (Coordinated Universal Time)",
@@ -8906,9 +8906,9 @@
           ],
           "locked": false,
           "created_at": "2025-12-27T17:03:54.067Z",
-          "updated_at": "2026-08-29T17:46:51.370Z",
+          "updated_at": "2026-09-05T17:47:10.411Z",
           "allow_update": true,
-          "__v": 34,
+          "__v": 35,
           "country": "",
           "views": null,
           "model_type": "title",
@@ -8929,7 +8929,7 @@
               "credits": [],
               "disable_update": false,
               "created_at": "2025-12-27T17:03:54.073Z",
-              "updated_at": "2026-08-29T18:13:53.352Z",
+              "updated_at": "2026-09-05T18:14:36.779Z",
               "__v": 0,
               "model_type": "season"
             }
@@ -9214,7 +9214,7 @@
               "overview": null,
               "credits": [],
               "disable_update": false,
-              "updated_at": "2026-08-29T14:20:56.425Z",
+              "updated_at": "2026-09-05T14:23:48.725Z",
               "__v": 0,
               "model_type": "season"
             }
@@ -9441,7 +9441,7 @@
       {
         "_id": "6a524b80c2fea6237b7d1f96",
         "id": 284051,
-        "name": "10.Bölüm",
+        "name": "Zalim Kader! Gözyaşları İçinde Kardeşinin Peşinde",
         "description": null,
         "translated": false,
         "poster": null,
@@ -9692,7 +9692,7 @@
               "overview": null,
               "credits": [],
               "disable_update": false,
-              "updated_at": "2026-08-29T13:59:44.776Z",
+              "updated_at": "2026-09-05T13:59:58.254Z",
               "__v": 0,
               "model_type": "season"
             }
@@ -10690,8 +10690,296 @@
     ]
   },
   {
-    "date": "2026-09-05T00:00:45.071Z",
+    "date": "2026-09-05T00:00:35.264Z",
     "episodes": [
+      {
+        "_id": "6a9c5139139ae0cdc908514e",
+        "name": "Son, 2.Kısım",
+        "description": "",
+        "poster": "https://image.tmdb.org/t/p/original/uDFynihNPNi77xTRRoFRBAkYPBf.jpg",
+        "release_date": "2026-09-05T17:00:00.000Z",
+        "title_id": 82,
+        "season_id": 4373,
+        "season_number": 2,
+        "episode_number": 47,
+        "allow_update": false,
+        "created_at": null,
+        "popularity": 50,
+        "credits": [],
+        "updated_at": "2026-09-05T17:28:25.718Z",
+        "id": 290637,
+        "__v": 0,
+        "model_type": "episode",
+        "title": {
+          "_id": "64d8a9d47354a48fcedef85f",
+          "id": 82,
+          "name": "Bleach",
+          "name_romanji": "Bleach",
+          "name_english": "Bleach",
+          "type": "series",
+          "title_type": "anime",
+          "tmdb_vote_average": 1,
+          "release_date": "2004-10-03",
+          "year": 2004,
+          "description": "Kurosaki Ichigo 15 yaşında normal bir öğrencidir, ancak ölülerle iletişim kurma becerisine sahiptir. Ichigo'nun babası ve kardeşleri aileye ait bir klinik işletmektedirler.\r\n\r\nBirgün, shinigami(ölüm tanrısı) olan Kuchiki Rukia, Ichigo'nun odasına camdan girer ve Ichigo'nun onu görebildiğine çok şaşırır. O anın kargaşasında çevreye gelen hollow(kötü ruh) ile dövüşürlerken, Rukia güçlerini Ichigo'ya geçirir. Shinigami güçlerini alan Ichigo, Rukia ile beraber hollow'ları yok etmeye başlar.",
+          "genre": null,
+          "tagline": null,
+          "poster": "https://image.tmdb.org/t/p/original/2EewmxXe72ogD0EaWM8gqa0ccIw.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/original/qtfMr08KQsWXnCHY0a96N8NpQ2l.jpg",
+          "runtime": 24,
+          "trailer": null,
+          "budget": 0,
+          "revenue": null,
+          "views": 190037,
+          "popularity": 180,
+          "imdb_id": "tt0434665",
+          "tmdb_id": 30984,
+          "mal_id": 269,
+          "mal_update": false,
+          "mal_vote_average": 8.3,
+          "mal_vote_count": 626050,
+          "season_count": 2,
+          "fully_synced": true,
+          "allow_update": false,
+          "quick_update": false,
+          "created_at": "2018-02-17T15:08:53.000Z",
+          "updated_at": "2023-08-09T14:30:09.000Z",
+          "language": "ja",
+          "country": "JP",
+          "original_title": "BLEACH",
+          "affiliate_link": null,
+          "tmdb_vote_count": 1,
+          "certification": "14",
+          "episode_count": 400,
+          "series_ended": false,
+          "is_series": true,
+          "local_vote_average": 9,
+          "show_videos": false,
+          "adult": false,
+          "videos_url_title_id_unique": "",
+          "local_vote_count": 118,
+          "replace_url": null,
+          "is_ready": true,
+          "anilist_id": 0,
+          "next_release_date": "",
+          "next_episode_number": 0,
+          "next_episode_date": "1970-01-01T00:00:00.000Z",
+          "home_video": "https://www.youtube.com/embed/v3d_9mJBceU?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=v3d_9mJBceU",
+          "is_public": false,
+          "model_type": "title",
+          "keywords": [
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2467",
+              "id": 71,
+              "name": "anime",
+              "display_name": "Anime",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2475",
+              "id": 85,
+              "name": "fantasy world",
+              "display_name": "Fantasy world",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc24e0",
+              "id": 192,
+              "name": "based on manga",
+              "display_name": "Based on manga",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc24ee",
+              "id": 206,
+              "name": "shounen",
+              "display_name": "Shounen",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc24fc",
+              "id": 220,
+              "name": "martial arts",
+              "display_name": "Martial arts",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2538",
+              "id": 280,
+              "name": "swordplay",
+              "display_name": "Swordplay",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2539",
+              "id": 281,
+              "name": "parallel universe",
+              "display_name": "Parallel universe",
+              "type": "keyword"
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc2f1e",
+              "id": 2814,
+              "name": "based-on-manga",
+              "display_name": "Based on manga",
+              "type": "keyword",
+              "created_at": "2022-02-08T00:00:00.000Z",
+              "updated_at": "2022-02-08T00:00:00.000Z"
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc2f28",
+              "id": 2824,
+              "name": "martial-arts",
+              "display_name": "Martial arts",
+              "type": "keyword",
+              "created_at": "2022-02-08T00:00:00.000Z",
+              "updated_at": "2022-02-08T00:00:00.000Z"
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc2f4c",
+              "id": 2860,
+              "name": "fantasy-world",
+              "display_name": "Fantasy world",
+              "type": "keyword",
+              "created_at": "2022-02-14T00:00:00.000Z",
+              "updated_at": "2022-02-14T00:00:00.000Z"
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc2faf",
+              "id": 2959,
+              "name": "parallel-universe",
+              "display_name": "Parallel universe",
+              "type": "keyword",
+              "created_at": "2022-02-28T00:00:00.000Z",
+              "updated_at": "2022-02-28T00:00:00.000Z"
+            }
+          ],
+          "genres": [
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2424",
+              "id": 4,
+              "name": "animation",
+              "display_name": "Animasyon",
+              "type": "genre"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2443",
+              "id": 35,
+              "name": "action adventure",
+              "display_name": "Action & Adventure",
+              "type": "genre"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc244c",
+              "id": 44,
+              "name": "sci fi fantasy",
+              "display_name": "Sci-Fi & Fantasy",
+              "type": "genre"
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc2678",
+              "id": 600,
+              "name": "action & adventure",
+              "display_name": "Action & Adventure",
+              "type": "genre",
+              "created_at": "2020-05-15T00:00:00.000Z",
+              "updated_at": "2020-05-15T00:00:00.000Z"
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc2679",
+              "id": 601,
+              "name": "sci-fi & fantasy",
+              "display_name": "Sci-Fi & Fantasy",
+              "type": "genre",
+              "created_at": "2020-05-15T00:00:00.000Z",
+              "updated_at": "2020-05-15T00:00:00.000Z"
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc2f18",
+              "id": 2808,
+              "name": "sci-fi-fantasy",
+              "display_name": "Sci-Fi & Fantasy",
+              "type": "genre",
+              "created_at": "2022-02-08T00:00:00.000Z",
+              "updated_at": "2022-02-08T00:00:00.000Z"
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc2f1f",
+              "id": 2815,
+              "name": "action-adventure",
+              "display_name": "Action & Adventure",
+              "type": "genre",
+              "created_at": "2022-02-08T00:00:00.000Z",
+              "updated_at": "2022-02-08T00:00:00.000Z"
+            }
+          ],
+          "__v": 1,
+          "titles": [],
+          "locked": false,
+          "seasons": [
+            {
+              "_id": "64d8a9d57354a48fcedf07e4",
+              "id": 179,
+              "release_date": "2001-01-01 00:00:00",
+              "poster": "https://image.tmdb.org/t/p/original/2qaPoZk6SmC8gnEYJJfms0I7tOg.jpg",
+              "number": 1,
+              "title_id": 82,
+              "anime9_id": 806,
+              "title_tmdb_id": 30984,
+              "allow_update": 1,
+              "created_at": "2018-06-24T11:00:30.000Z",
+              "updated_at": "2022-11-21T01:14:41.000Z",
+              "episode_count": 362,
+              "fully_synced": true,
+              "name": "Season 1",
+              "overview": "",
+              "credits": [],
+              "disable_update": true,
+              "model_type": "season"
+            },
+            {
+              "_id": "64d8a9d57354a48fcedf16ce",
+              "id": 4373,
+              "release_date": null,
+              "poster": "https://image.tmdb.org/t/p/original/pXF8zHf3YAOZg71DiS1itmktzbh.jpg",
+              "number": 2,
+              "title_id": 82,
+              "anime9_id": 15665,
+              "title_tmdb_id": null,
+              "allow_update": 1,
+              "created_at": "2022-10-10T06:29:41.000Z",
+              "updated_at": "2025-07-23T19:46:47.706Z",
+              "episode_count": 47,
+              "fully_synced": false,
+              "overview": null,
+              "credits": [],
+              "disable_update": true,
+              "name": "Thousand-Year Blood War",
+              "model_type": "season"
+            }
+          ]
+        }
+      },
       {
         "_id": "6a2fd339cabd56d68389acbd",
         "id": 281306,
@@ -12734,7 +13022,7 @@
     ]
   },
   {
-    "date": "2026-09-06T00:00:45.071Z",
+    "date": "2026-09-06T00:00:35.264Z",
     "episodes": [
       {
         "_id": "6a9424f4b7bb2d74703861c8",
@@ -13505,7 +13793,7 @@
               "credits": [],
               "disable_update": false,
               "created_at": "2026-07-04T08:16:16.948Z",
-              "updated_at": "2026-08-29T10:28:09.346Z",
+              "updated_at": "2026-09-05T10:28:15.051Z",
               "__v": 0,
               "model_type": "season"
             }

@@ -6,7 +6,7 @@ const axios = setupCache(instance);
 
 
 const NodeCache = require("node-cache");
-const tauCache = new NodeCache({ stdTTL: 2 * 60 * 60 }); // 2 saatlik önbellek
+const tauCache = new NodeCache({ stdTTL: 2 * 60 * 60, maxKeys: 150, checkperiod: 300 }); // 2 saatlik önbellek, max 150
 
 async function VideoApi(code) {
     try {

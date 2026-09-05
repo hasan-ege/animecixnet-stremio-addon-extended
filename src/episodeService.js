@@ -3,7 +3,7 @@ const header = require('../header');
 const NodeCache = require('node-cache');
 const { signer } = require('./signer');
 
-const episodeCache = new NodeCache({ stdTTL: 12 * 60 * 60 }); // 12 saat önbellek
+const episodeCache = new NodeCache({ stdTTL: 12 * 60 * 60, maxKeys: 200, checkperiod: 300 }); // 12 saat önbellek, max 200 başlık
 
 /**
  * AnimeciX resmi sezon API'si üzerinden o sezondaki tüm bölümlerin

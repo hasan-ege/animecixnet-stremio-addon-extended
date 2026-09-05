@@ -1,0 +1,14 @@
+services:
+  animecix-addon:
+    build: .
+    container_name: animecix-stremio-addon
+    restart: unless-stopped
+    ports:
+      - "7000:7000"
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 512M

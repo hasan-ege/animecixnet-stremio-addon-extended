@@ -8,13 +8,9 @@ const manifest = {
     logo: `${process.env.HOSTING_URL}/images/animecix.png`,
     background: `${process.env.HOSTING_URL}/images/background.png`,
     behaviorHints: {
-
+        configurable: false,
+        configurationRequired: false
     },
-    config: [{
-        key: "animecix",
-        type: "select",
-        required: false
-    }],
     catalogs: [
     {
         type: "series",

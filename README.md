@@ -60,39 +60,33 @@ Sayfadaki **"STREMIO'YA YÜKLE"** butonuna basarak tek tıkla Stremio uygulaman�
 
 ### Yöntem A: Docker ile Çalıştırma (Önerilen)
 
-Docker kurulu olan herhangi bir sistemde kolayca ayağa kaldırabilirsiniz:
+Projeyi Docker ile sıfırdan derleyip çalıştırmak için:
 
+#### 1. Docker Compose ile (En Pratik Yol):
 ```bash
+# Arka planda derleyip başlatır
+docker compose up -d --build
+
+# Logları canlı izlemek için
+docker compose logs -f
+
+# Durdurmak için
+docker compose down
+```
+
+#### 2. Standart Docker Komutları ile:
+```bash
+# İmajı oluşturun
+docker build -t animecix-addon .
+
+# Konteyneri başlatın (512MB RAM limiti ve otomatik yeniden başlatma ile)
 docker run -d \
   --name animecix-stremio \
   -p 7000:7000 \
+  -m 512m \
   --restart unless-stopped \
-  -e PORT=7000 \
-  -e HOSTING_URL=http://SUNUCU_IP_ADRESINIZ:7000 \
-  ghcr.io/aflextr/animecixnet-stremio-addon-image:latest
-```
-
-#### Docker Compose ile:
-`docker-compose.yml` dosyası oluşturun:
-
-```yaml
-version: '3.8'
-
-services:
-  animecix-stremio:
-    image: ghcr.io/aflextr/animecixnet-stremio-addon-image:latest
-    container_name: animecix-stremio
-    restart: unless-stopped
-    ports:
-      - "7000:7000"
-    environment:
-      - PORT=7000
-      - HOSTING_URL=http://SUNUCU_IP_ADRESINIZ:7000
-```
-
-Ardından başlatın:
-```bash
-docker compose up -d
+  --env-file .env \
+  animecix-addon
 ```
 
 ---

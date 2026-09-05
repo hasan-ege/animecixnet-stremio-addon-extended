@@ -1,7 +1,7 @@
 const Axios = require('axios');
 const NodeCache = require('node-cache');
 
-const kitsuCache = new NodeCache({ stdTTL: 24 * 60 * 60 }); // 24 saat önbellek
+const kitsuCache = new NodeCache({ stdTTL: 12 * 60 * 60, maxKeys: 100, checkperiod: 300 }); // 12 saat önbellek, max 100
 
 const KITSU_HEADERS = {
     'Accept': 'application/vnd.api+json',

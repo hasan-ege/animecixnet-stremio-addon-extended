@@ -1,0 +1,10 @@
+node_modules
+.git
+.gitignore
+.env
+static/subs/*
+!static/subs/.gitkeep
+npm-debug.log
+Dockerfile
+docker-compose.yml
+README.md

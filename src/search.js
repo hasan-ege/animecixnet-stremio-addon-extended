@@ -9,7 +9,7 @@ const axios = setupCache(instance);
 
 
 const NodeCache = require("node-cache");
-const knownTitles = new NodeCache({ stdTTL: 24 * 60 * 60 }); // 24 saat sakla
+const knownTitles = new NodeCache({ stdTTL: 6 * 60 * 60, maxKeys: 500, checkperiod: 300 }); // 6 saat sakla, max 500 başlık
 
 function saveKnownTitle(titleObj) {
     if (titleObj && titleObj.id) {

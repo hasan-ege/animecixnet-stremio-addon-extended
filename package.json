@@ -4,7 +4,7 @@
   "description": "animecix extension for stremio",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node --max-old-space-size=384 index.js"
   },
   "keywords": [],
   "author": "aflextr",

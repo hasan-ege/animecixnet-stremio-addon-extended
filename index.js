@@ -2,7 +2,6 @@ const { publishToCentral } = require('stremio-addon-sdk')
 require("dotenv").config()
 const searchVideo = require("./src/search")
 const MANIFEST = require('./manifest');
-const landing = require("./src/landingTemplate");
 const videos = require("./src/videos");
 const Path = require("path");
 const express = require("express");
@@ -26,7 +25,7 @@ const axios = setupCache(instance);
 
 calendarService.initCalendarService();
 
-const myCache = new NodeCache({ stdTTL: 30 * 60, checkperiod: 300 });
+const myCache = new NodeCache({ stdTTL: 30 * 60, maxKeys: 300, checkperiod: 120 });
 
 /**
  * Türkçe başlık düzeni (Bağlaçlar hariç her kelimenin ilk harfi büyük).
@@ -98,7 +97,8 @@ const CACHE_MAX_AGE = 4 * 60 * 60; // 4 hours in seconds
 const STALE_REVALIDATE_AGE = 4 * 60 * 60; // 4 hours
 const STALE_ERROR_AGE = 7 * 24 * 60 * 60; // 7 days
 
-app.use(express.static(path.join(__dirname, "static")));
+app.use('/images', express.static(path.join(__dirname, "static", "images"), { maxAge: '7d' }));
+app.use('/subs', express.static(path.join(__dirname, "static", "subs"), { maxAge: '1d' }));
 
 app.use((req, res, next) => {
     if (!req.url.startsWith('/images') && !req.url.startsWith('/subs')) {
@@ -107,10 +107,8 @@ app.use((req, res, next) => {
     next();
 });
 
-var meta = [];
-var subs = [];
-
-
+// Altyazı URL eşleşmeleri için sınırlı bellek önbelleği
+const subsCache = new NodeCache({ stdTTL: 2 * 60 * 60, maxKeys: 300, checkperiod: 300 });
 
 var respond = function (res, data) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -119,39 +117,21 @@ var respond = function (res, data) {
     res.send(data);
 };
 
+// Web arayüzü yerine hafif JSON durumu döner
 app.get('/', function (req, res) {
-    res.set('Content-Type', 'text/html');
-    res.send(landing(MANIFEST));
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    return res.json({
+        name: MANIFEST.name,
+        version: MANIFEST.version,
+        description: MANIFEST.description,
+        status: "online",
+        manifest: "/addon/manifest.json"
+    });
 });
 
-app.get('/configure', function (req, res) {
-    res.set('Content-Type', 'text/html');
-    const newManifest = { ...MANIFEST };
-    res.send(landing(newManifest));
-})
-
-app.get('/manifest.json', function (req, res) {
-    const newManifest = { ...MANIFEST };
-    newManifest.behaviorHints.configurable = true;
-    newManifest.behaviorHints.configurationRequired = false;
-    return respond(res, newManifest);
-});
-
-app.get('/:userConf/manifest.json', function (req, res) {
-    try {
-        const newManifest = { ...MANIFEST };
-        if (!((req || {}).params || {}).userConf) return;
-
-        if (req.params.userConf === "configure") {
-            return respond(res, newManifest);
-        } else if (req.params.userConf === "addon") {
-            newManifest.behaviorHints.configurable = true;
-            newManifest.behaviorHints.configurationRequired = false;
-            return respond(res, newManifest);
-        }
-    } catch (error) {
-        console.log(error);
-    }
+app.get(['/manifest.json', '/addon/manifest.json', '/:userConf/manifest.json'], function (req, res) {
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    return respond(res, MANIFEST);
 });
 
 function parseCatalogExtra(extraString, queryParams = {}) {
@@ -358,7 +338,6 @@ app.get('/addon/meta/:type/:id/', async (req, res, next) => {
                         }
                     }
                 }
-                meta.push(metaObj.videos);
                 if (metaObj.name && !metaObj.name.startsWith("Anime ")) {
                     myCache.set(findId, metaObj);
                 }
@@ -383,7 +362,6 @@ app.get('/addon/meta/:type/:id/', async (req, res, next) => {
                     anime: animes
                 });
                 metaObj.videos = videos;
-                meta.push(videos);
                 if (metaObj.name && !metaObj.name.startsWith("Anime ")) {
                     myCache.set(findId, metaObj);
                 }
@@ -470,11 +448,7 @@ app.get(streamRoutes, async (req, res, next) => {
                     if (element.extra.includes("yapay") || element.extra === '' || element.extra === "null") {
                         if (element.name === "tau video") {
                             if (element && Array.isArray(element.captions) && typeof (element.captions[0]) !== "undefined") {
-                                subs.push({
-                                    id: id,
-                                    lang: "tur",
-                                    url: element.captions[0].url,
-                                })
+                                subsCache.set(id, element.captions[0].url);
                                 break;
                             }
                         }
@@ -505,101 +479,93 @@ app.get(streamRoutes, async (req, res, next) => {
     }
 })
 
+let lastSubClean = 0;
 function CheckSubtitleFoldersAndFiles() {
+    const now = Date.now();
+    // En fazla 30 dakikada bir kontrol et (CPU ve I/O yükünü önlemek için)
+    if (now - lastSubClean < 30 * 60 * 1000) return;
+    lastSubClean = now;
+
     try {
         const folderPath = path.join(__dirname, "static", "subs");
-
         if (!fs.existsSync(folderPath)) {
-            fs.mkdirSync(folderPath);
+            fs.mkdirSync(folderPath, { recursive: true });
+            return;
         }
 
         const files = fs.readdirSync(folderPath);
-
-        if (files.length > 500) {
-            files.forEach((file) => {
-                const filePath = Path.join(folderPath, file);
-                const fileStats = fs.statSync(filePath);
-
-                if (fileStats.isFile()) {
-                    fs.unlinkSync(filePath);
-                } else if (fileStats.isDirectory()) {
-                    // Dizin içinde dosya varsa onları da silmek için
-                    fs.rmdirSync(filePath, { recursive: true });
-                }
-            });
+        if (files.length > 200) {
+            for (const file of files) {
+                const filePath = path.join(folderPath, file);
+                try {
+                    fs.rmSync(filePath, { recursive: true, force: true });
+                } catch (e) {}
+            }
         }
     } catch (error) {
-        console.log(error);
+        console.log("CheckSubtitleFoldersAndFiles error:", error.message);
     }
-
 }
-
-
-
 
 app.get('/addon/subtitles/:type/:id/:query?.json', async (req, res, next) => {
     try {
         var { type, id } = req.params;
         id = id.replace(".json", "");
         if (id) {
+            const captionUrl = subsCache.get(id);
+            if (captionUrl) {
+                var localUrl = process.env.HOSTING_URL + `/subs/${id}/${id}.srt`;
+                const subtitles = {
+                    id: "animecix-" + id,
+                    lang: "tur",
+                    url: localUrl
+                };
 
-            var subtitleHeader = {
-                "User-Agent": `${process.env.USERAGENT}`,
-                "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120", "Microsoft Edge";v="120"',
-                "sec-ch-ua-mobile": "?0",
-                "sec-ch-ua-platform": "Windows",
-            }
+                CheckSubtitleFoldersAndFiles();
 
+                const existingSub = path.join(__dirname, "static", "subs", id, `${id}.srt`);
+                if (fs.existsSync(existingSub)) {
+                    return respond(res, { subtitles: [subtitles], cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE });
+                }
 
-            for await (const element of subs) {
-                if (id === element.id) {
-                    var localUrl = process.env.HOSTING_URL + `/subs/${id}/${id}.srt`;
-                    const subtitles = {
-                        id: "animecix-" + id,
-                        lang: "tur",
-                        url: localUrl
-                    }
-                    CheckSubtitleFoldersAndFiles();
-                    //video id bulunduktan sonra yapılacaklar
-                    if (fs.existsSync(path.join(__dirname, "static", "subs", id))) {
-                        return respond(res, { subtitles: [subtitles] })
-                    }
+                var downloadUrl = `${process.env.SUBTITLEAI_URL + new URL(captionUrl).pathname}`;
+                var subtitleHeader = {
+                    "User-Agent": `${process.env.USERAGENT}`,
+                    "sec-ch-ua": '"Not_A Brand";v="8", "Chromium";v="120", "Microsoft Edge";v="120"',
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-ch-ua-platform": "Windows",
+                };
 
-                    var downloadUrl = `${process.env.SUBTITLEAI_URL + new URL(element.url).pathname}`;
-
+                var response = await axios.get(downloadUrl, { method: "GET", headers: subtitleHeader });
+                if (response && response.status == 200 && response.statusText == "OK") {
                     var subtitle = "";
+                    if (Path.extname(downloadUrl) !== ".srt" && Path.extname(downloadUrl) !== ".ass") {
+                        const outputExtension = '.srt';
+                        const options = {
+                            removeTextFormatting: true,
+                        };
+                        subtitle = subsrt.convert(response.data, outputExtension, options).subtitle;
+                    } else if (Path.extname(downloadUrl) === ".ass") {
+                        subtitle = ass2srt(response.data);
+                    } else if (Path.extname(downloadUrl) === ".srt") {
+                        subtitle = response.data;
+                    }
 
-
-                    var response = await axios.get(downloadUrl, { method: "GET", headers: subtitleHeader });
-                    if (response && response.status == 200 && response.statusText == "OK") {
-                        if (Path.extname(downloadUrl) !== ".srt" && Path.extname(downloadUrl) !== ".ass") {
-                            const outputExtension = '.srt';
-                            const options = {
-                                removeTextFormatting: true,
-                            };
-
-                            subtitle = subsrt.convert(response.data, outputExtension, options).subtitle;
-                        } else if (Path.extname(downloadUrl) === ".ass") {
-                            subtitle = ass2srt(response.data)
-                        } else if (Path.extname(downloadUrl) === ".srt") {
-                            subtitle = response.data;
+                    if (subtitle !== '') {
+                        const subDir = path.join(__dirname, "static", "subs", id);
+                        if (!fs.existsSync(subDir)) {
+                            fs.mkdirSync(subDir, { recursive: true });
                         }
-
-                        if (subtitle !== '') {
-                            if (!fs.existsSync(path.join(__dirname, "static", "subs", id))) {
-                                fs.mkdirSync(path.join(__dirname, "static", "subs", id), { recursive: true });
-                            }
-
-                            fs.writeFileSync(`./static/subs/${id}/${id}.srt`, subtitle, { encoding: "utf8" });
-                            return respond(res, { subtitles: [subtitles], cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE })
-
-                        }
+                        fs.writeFileSync(path.join(subDir, `${id}.srt`), subtitle, { encoding: "utf8" });
+                        return respond(res, { subtitles: [subtitles], cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE });
                     }
                 }
             }
+            return respond(res, { subtitles: [] });
         }
     } catch (error) {
         if (error) console.log(error);
+        return respond(res, { subtitles: [] });
     }
 })
 
