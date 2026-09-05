@@ -4,14 +4,19 @@ const NodeCache = require('node-cache');
 
 const homeCache = new NodeCache({ stdTTL: 15 * 60, maxKeys: 50, checkperiod: 120 }); // 15 dakika önbellek, max 50
 const { saveKnownTitle } = require('./search');
+const { signer } = require('./signer');
 
 async function getHomepageLists() {
     try {
         const cached = homeCache.get('homepage_lists');
         if (cached) return cached;
 
+        const signHeader = await signer.getHeader('');
         const res = await Axios.get('https://animecix.tv/secure/homepage/lists', {
-            headers: header,
+            headers: {
+                ...header,
+                ...signHeader
+            },
             timeout: 10000
         });
 

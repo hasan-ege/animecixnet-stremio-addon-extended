@@ -398,24 +398,27 @@ app.get(streamRoutes, async (req, res, next) => {
             var detail = {};
             var typeValue;
 
-            for (let i = 0; i < meta.length; i++) {
-                var value = meta[i].filter(e => e.id == id)[0];
-                if (value) {
-                    detail = value;
-                    break;
+            // ID'den akıllı ayrıştırma fallback (0-titleId-season-episode veya 0-titleId:season:episode)
+            const cleanId = decodeURIComponent(id).replace(/^0-/, "");
+            const parts = cleanId.split(/[-:]/);
+            const titleId = parts[0];
+
+            // Önce myCache içerisindeki meta nesnesinden bulmaya çalış
+            const cachedMeta = myCache.get(titleId);
+            if (cachedMeta && Array.isArray(cachedMeta.videos)) {
+                const found = cachedMeta.videos.find(e => e.id === id || e.id === `0-${id}` || (parts.length >= 3 && e.season == parts[1] && e.episode == parts[2]));
+                if (found) {
+                    detail = found;
                 }
             }
 
-            // ID'den akıllı ayrıştırma fallback (0-titleId-season-episode veya 0-titleId:season:episode)
-            const cleanId = decodeURIComponent(id).replace("0-", "");
-            const parts = cleanId.split(/[-:]/);
-            if (parts.length >= 3) {
+            if ((!detail || !detail._id) && parts.length >= 3) {
                 detail = {
                     _id: parts[0],
-                    season: parseInt(parts[1]) || 1,
-                    episode: parseInt(parts[2]) || 1
+                    season: parseInt(parts[1], 10) || 1,
+                    episode: parseInt(parts[2], 10) || 1
                 };
-            } else if ((!detail || !detail._id) && parts.length === 1 && !isNaN(parseInt(parts[0]))) {
+            } else if ((!detail || !detail._id) && parts.length === 1 && !isNaN(parseInt(parts[0], 10))) {
                 // Eski eklenti versiyonlarının kaydettiği doğrudan bölüm ID'si (örn: 0-127036)
                 const epRes = await axios.get(`https://animecix.tv/secure/episodes/${parts[0]}`, { headers: header }).catch(() => null);
                 if (epRes && epRes.data && epRes.data.data) {
@@ -423,6 +426,12 @@ app.get(streamRoutes, async (req, res, next) => {
                         _id: epRes.data.data.title_id,
                         season: epRes.data.data.season_number || 1,
                         episode: epRes.data.data.episode_number || 1
+                    };
+                } else {
+                    detail = {
+                        _id: parts[0],
+                        season: 1,
+                        episode: 1
                     };
                 }
             }

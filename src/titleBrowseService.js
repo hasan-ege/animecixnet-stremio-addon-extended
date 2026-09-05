@@ -76,15 +76,13 @@ async function getBrowseMetas({ type = 'series', genre = null, search = null, sk
         const queryStr = Object.keys(params)
             .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(params[k])}`)
             .join('&');
-        const signPath = '/?' + queryStr;
-        const signHeader = await signer.getHeader(signPath);
+        const signHeader = await signer.getHeader(`?${queryStr}`);
 
-        const res = await Axios.get('https://animecix.tv/secure/titles', {
+        const res = await Axios.get(`https://animecix.tv/secure/titles?${queryStr}`, {
             headers: {
                 ...header,
                 ...signHeader
             },
-            params: params,
             timeout: 10000
         });
 

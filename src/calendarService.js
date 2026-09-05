@@ -1,5 +1,6 @@
 const Axios = require('axios');
 const header = require('../header');
+const { signer } = require('./signer');
 const { saveKnownTitle } = require('./search');
 const fs = require('fs');
 const path = require('path');
@@ -101,9 +102,12 @@ async function fetchCalendarData() {
 
     fetchPromise = (async () => {
         try {
-            const res = await Axios.get(`https://animecix.tv/secure/calendar?_t=${Date.now()}`, {
+            const query = `?_t=${Date.now()}`;
+            const signHeader = await signer.getHeader(query);
+            const res = await Axios.get(`https://animecix.tv/secure/calendar${query}`, {
                 headers: {
                     ...header,
+                    ...signHeader,
                     'Cache-Control': 'no-cache',
                     'Pragma': 'no-cache'
                 },

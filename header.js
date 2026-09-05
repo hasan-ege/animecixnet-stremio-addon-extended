@@ -1,4 +1,5 @@
-require("dotenv").config()
+require("dotenv").config();
+
 const header = {
     'Content-Type': "application/json",
     "Referer": "https://animecix.tv/",
@@ -7,7 +8,7 @@ const header = {
     "sec-ch-ua-mobile": "?0",
     "sec-ch-ua-platform": "Windows",
     ...(process.env.API_KEY ? { "Authorization": `Bearer ${process.env.API_KEY}` } : {}),
-}
+};
 
 module.exports = header;
 
