@@ -166,11 +166,6 @@ Gereksinim: **Node.js 18+**
 
 ---
 
-## ☕ Destek ve Bağış
-
-AnimeciX, yurtdışı erişimlerinde Cloudflare koruması kullandığından bu eklentinin sunucu ve proxy maliyetleri bulunmaktadır. Eklentinin sürdürülebilirliğine katkıda bulunmak isterseniz:
-
-- ☕ **Buy Me a Coffee**: [buymeacoffee.com/mycodelab](https://www.buymeacoffee.com/mycodelab)
 - ⭐ Projeyi beğendiyseniz GitHub üzerinden bir yıldız bırakabilirsiniz!
 
 ---
