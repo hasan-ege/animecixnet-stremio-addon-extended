@@ -15,7 +15,7 @@ COPY . .
 # Altyazı dizininin var olduğundan emin ol
 RUN mkdir -p static/subs
 
-EXPOSE 7000
+EXPOSE 7000 8080
 
 # 512MB RAM sınırında OOM (Out-of-Memory) çökmesini önlemek için V8 heap limiti
 CMD ["node", "--max-old-space-size=384", "index.js"]
