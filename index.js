@@ -23,6 +23,7 @@ const homepage = require("./src/homepage");
 const episodeService = require("./src/episodeService");
 const calendarService = require("./src/calendarService");
 const titleBrowseService = require("./src/titleBrowseService");
+const { signer } = require("./src/signer");
 const instance = Axios.create();
 const axios = setupCache(instance);
 
@@ -135,6 +136,25 @@ app.get('/', function (req, res) {
 app.get(['/manifest.json', '/addon/manifest.json', '/:userConf/manifest.json'], function (req, res) {
     res.setHeader('Cache-Control', 'public, max-age=3600');
     return respond(res, MANIFEST);
+});
+
+app.get('/debug-test', async (req, res) => {
+    const results = {};
+    try {
+        const signH = await signer.getHeader('');
+        const r = await Axios.get('https://animecix.tv/secure/homepage/lists', {
+            headers: { ...header, ...signH },
+            timeout: 8000
+        });
+        results.homepage = { status: r.status, ok: true, listsCount: r.data?.lists?.length };
+    } catch (e) {
+        results.homepage = {
+            status: e.response ? e.response.status : null,
+            error: e.message,
+            bodySnippet: e.response && typeof e.response.data === 'string' ? e.response.data.slice(0, 300) : null
+        };
+    }
+    return res.json(results);
 });
 
 function parseCatalogExtra(extraString, queryParams = {}) {
@@ -250,7 +270,16 @@ const catalogRoutes = [
 
 app.get(catalogRoutes, handleCatalogRequest);
 
-app.get('/addon/meta/:type/:id/', async (req, res, next) => {
+const metaRoutes = [
+    "/addon/meta/:type/:id.json",
+    "/addon/meta/:type/:id",
+    "/meta/:type/:id.json",
+    "/meta/:type/:id",
+    "/addon/meta/:type/:id/",
+    "/meta/:type/:id/"
+];
+
+app.get(metaRoutes, async (req, res, next) => {
     try {
         var { type, id } = req.params;
         id = id.replace(".json", "");
@@ -519,7 +548,16 @@ function CheckSubtitleFoldersAndFiles() {
     }
 }
 
-app.get('/addon/subtitles/:type/:id/:query?.json', async (req, res, next) => {
+const subtitleRoutes = [
+    "/addon/subtitles/:type/:id/:query?.json",
+    "/addon/subtitles/:type/:id/:query?",
+    "/subtitles/:type/:id/:query?.json",
+    "/subtitles/:type/:id/:query?",
+    "/addon/subtitles/:type/:id.json",
+    "/subtitles/:type/:id.json"
+];
+
+app.get(subtitleRoutes, async (req, res, next) => {
     try {
         var { type, id } = req.params;
         id = id.replace(".json", "");
