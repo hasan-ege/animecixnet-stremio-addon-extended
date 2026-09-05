@@ -148,10 +148,14 @@ app.get('/debug-test', async (req, res) => {
         });
         results.homepage = { status: r.status, ok: true, listsCount: r.data?.lists?.length };
     } catch (e) {
+        const dataStr = typeof e.response?.data === 'string' ? e.response.data : JSON.stringify(e.response?.data || '');
+        const titleMatch = dataStr.match(/<title>([^<]+)<\/title>/i);
         results.homepage = {
             status: e.response ? e.response.status : null,
             error: e.message,
-            bodySnippet: e.response && typeof e.response.data === 'string' ? e.response.data.slice(0, 300) : null
+            title: titleMatch ? titleMatch[1] : null,
+            cfRay: e.response?.headers?.['cf-ray'],
+            server: e.response?.headers?.['server']
         };
     }
     return res.json(results);

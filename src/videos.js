@@ -1,5 +1,6 @@
 const header = require("../header");
 const tauvideoapi = require("./api/tauvideoapi");
+const { signer } = require("./signer");
 require("dotenv").config();
 const Axios = require('axios')
 const { setupCache } = require("axios-cache-interceptor");
@@ -12,13 +13,17 @@ async function GetVideos(id, episode, season) {
     var values = [];
     try {
         if (id > 0 && episode > 0 && season > 0) {
-            await axios.get(`${process.env.API_HOST}/episode-videos?titleId=${id}&episode=${episode}&season=${season}`, { headers: header }).then((value) => {
-                if (value && value.status == 200 && value.statusText == "OK") {
-                    values = value.data;
-                }
+            const query = `?titleId=${id}&episode=${episode}&season=${season}`;
+            const signHeader = await signer.getHeader(query);
+            const value = await axios.get(`${process.env.API_HOST}/episode-videos${query}`, {
+                headers: { ...header, ...signHeader }
             }).catch((error) => {
-                console.log(error);
-            })
+                console.log("GetVideos error:", error.response ? error.response.status : error.message);
+                return null;
+            });
+            if (value && value.status == 200 && Array.isArray(value.data)) {
+                values = value.data;
+            }
         }
 
         return values;
