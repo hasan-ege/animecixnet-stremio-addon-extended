@@ -121,48 +121,39 @@ var respond = function (res, data) {
     res.send(data);
 };
 
+function getBaseUrl(req) {
+    if (process.env.HOSTING_URL && !process.env.HOSTING_URL.includes('localhost') && !process.env.HOSTING_URL.includes('127.0.0.1')) {
+        return process.env.HOSTING_URL.replace(/\/+$/, '');
+    }
+    const proto = req.headers['x-forwarded-proto'] || (req.secure ? 'https' : 'http');
+    const host = req.headers['x-forwarded-host'] || req.headers.host || `localhost:${process.env.PORT || 7000}`;
+    return `${proto}://${host}`;
+}
+
 // Web arayüzü yerine hafif JSON durumu döner
 app.get('/', function (req, res) {
     res.setHeader('Cache-Control', 'public, max-age=3600');
+    const baseUrl = getBaseUrl(req);
     return res.json({
         name: MANIFEST.name,
         version: MANIFEST.version,
         description: MANIFEST.description,
         status: "online",
-        manifest: "/addon/manifest.json"
+        manifest: `${baseUrl}/addon/manifest.json`
     });
 });
 
 app.get(['/manifest.json', '/addon/manifest.json', '/:userConf/manifest.json'], function (req, res) {
     res.setHeader('Cache-Control', 'public, max-age=3600');
-    return respond(res, MANIFEST);
+    const baseUrl = getBaseUrl(req);
+    const dynamicManifest = {
+        ...MANIFEST,
+        logo: `${baseUrl}/images/animecix.png`,
+        background: `${baseUrl}/images/background.png`
+    };
+    return respond(res, dynamicManifest);
 });
 
-app.get('/debug-test', async (req, res) => {
-    const results = {};
-    const domains = ['https://animecix.tv', 'https://anm.cx', 'https://animecix.net'];
-    const signH = await signer.getHeader('');
-
-    for (const d of domains) {
-        try {
-            const r = await Axios.get(`${d}/secure/homepage/lists`, {
-                headers: { ...header, ...signH },
-                timeout: 5000,
-                maxRedirects: 0
-            });
-            results[d] = { status: r.status, ok: true };
-        } catch (e) {
-            const dataStr = typeof e.response?.data === 'string' ? e.response.data : JSON.stringify(e.response?.data || '');
-            const titleMatch = dataStr.match(/<title>([^<]+)<\/title>/i);
-            results[d] = {
-                status: e.response ? e.response.status : null,
-                title: titleMatch ? titleMatch[1] : null,
-                location: e.response?.headers?.['location']
-            };
-        }
-    }
-    return res.json(results);
-});
 
 function parseCatalogExtra(extraString, queryParams = {}) {
     const extra = { ...queryParams };
@@ -571,7 +562,7 @@ app.get(subtitleRoutes, async (req, res, next) => {
         if (id) {
             const captionUrl = subsCache.get(id);
             if (captionUrl) {
-                var localUrl = process.env.HOSTING_URL + `/subs/${id}/${id}.srt`;
+                var localUrl = `${getBaseUrl(req)}/subs/${id}/${id}.srt`;
                 const subtitles = {
                     id: "animecix-" + id,
                     lang: "tur",
@@ -649,10 +640,7 @@ if (module.parent) {
             return console.error("Error :" + err);
         }
         const localIP = getLocalIP();
-        // HOSTING_URL'i otomatik ayarla (env'de yoksa veya localhost ise)
-        if (!process.env.HOSTING_URL || process.env.HOSTING_URL.includes('localhost')) {
-            process.env.HOSTING_URL = `http://${localIP}:${PORT}`;
-        }
+        const displayUrl = process.env.HOSTING_URL || `http://${localIP}:${PORT}`;
         console.log(`\n✅ Eklenti çalışıyor! Port: ${PORT}\n`);
         console.log(`   Yerel:   http://localhost:${PORT}`);
         console.log(`   Ağ:      http://${localIP}:${PORT}\n`);
