@@ -456,6 +456,14 @@ app.get('/api/stats/stream', function (req, res) {
     connectionTracker.addSseClient(res);
 });
 
+// İstatistikleri ve aktif kullanıcıları sıfırlama (Clear) uç noktası
+app.all('/api/stats/clear', function (req, res) {
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache');
+    const cleared = connectionTracker.clear();
+    return res.json(cleared);
+});
+
 app.get(['/manifest.json', '/addon/manifest.json', '/:userConf/manifest.json'], function (req, res) {
     res.setHeader('Cache-Control', 'public, max-age=3600');
     const baseUrl = getBaseUrl(req);

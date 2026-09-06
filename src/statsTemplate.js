@@ -190,6 +190,18 @@ function getStatsHTML(baseUrl) {
             transform: translateY(-1px);
         }
 
+        .action-btn.btn-danger {
+            background: rgba(244, 63, 94, 0.15);
+            border-color: rgba(244, 63, 94, 0.3);
+            color: #fda4af;
+        }
+
+        .action-btn.btn-danger:hover {
+            background: rgba(244, 63, 94, 0.3);
+            border-color: rgba(244, 63, 94, 0.5);
+            color: #ffffff;
+        }
+
         /* İstatistik Kartları Izgarası */
         .stats-grid {
             display: grid;
@@ -618,6 +630,9 @@ function getStatsHTML(baseUrl) {
                 <button class="action-btn" onclick="fetchManual()" title="Manuel yenile">
                     🔄 Yenile
                 </button>
+                <button class="action-btn btn-danger" onclick="clearStats()" title="Tüm sayaçları ve aktif kullanıcı listesini sıfırla">
+                    🗑️ Temizle
+                </button>
                 <a href="/" class="action-btn" title="Eklenti Ana Sayfası">
                     🏠 Ana Sayfa
                 </a>
@@ -1004,6 +1019,23 @@ function getStatsHTML(baseUrl) {
                 }
             } catch (err) {
                 console.error('Fetch hatası:', err);
+            }
+        }
+
+        async function clearStats() {
+            if (!confirm("Tüm aktif kullanıcıları ve sayaçları sıfırlamak istediğinize emin misiniz?")) return;
+            try {
+                const res = await fetch('/api/stats/clear', {
+                    method: 'POST',
+                    headers: { 'ngrok-skip-browser-warning': 'true' }
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    knownUsers.clear();
+                    updateDashboard(data);
+                }
+            } catch (err) {
+                console.error('Temizleme hatası:', err);
             }
         }
 

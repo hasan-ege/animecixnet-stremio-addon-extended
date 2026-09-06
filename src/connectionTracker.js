@@ -164,8 +164,7 @@ class ConnectionTracker {
         const rawIp = (req.headers['x-forwarded-for'] 
             ? req.headers['x-forwarded-for'].split(',')[0].trim() 
             : req.socket.remoteAddress) || '127.0.0.1';
-        const ua = req.headers['user-agent'] || 'unknown';
-        return `${rawIp}#${ua}`;
+        return rawIp.replace('::ffff:', '');
     }
 
     onStart(req) {
@@ -191,6 +190,7 @@ class ConnectionTracker {
         let client = this.clients.get(clientId);
         const isNew = !client;
         const nickname = getNickname(rawIp);
+        const newDevice = parseClientInfo(req);
 
         if (isNew) {
             client = {
@@ -198,7 +198,7 @@ class ConnectionTracker {
                 ip: rawIp,
                 maskedIp: maskIp(rawIp),
                 nickname: nickname,
-                device: parseClientInfo(req),
+                device: newDevice,
                 firstSeen: now,
                 lastSeen: now,
                 lastUrl: req.url,
@@ -211,6 +211,10 @@ class ConnectionTracker {
             client.lastUrl = req.url;
             client.lastAction = action;
             client.requestCount++;
+            // Aynı IP'den daha spesifik bir Stremio cihazı geldiğinde cihazı güncelle
+            if (newDevice.includes('Stremio') || client.device === 'Web / API') {
+                client.device = newDevice;
+            }
         }
 
         // Son istek akışına ekle (Maksimum 30 adet)
@@ -359,6 +363,15 @@ class ConnectionTracker {
             aktifKullaniciListesi: activeList,
             sonAktiviteler: this.recentRequests.slice(0, 20)
         };
+    }
+
+    clear() {
+        this.clients.clear();
+        this.recentRequests = [];
+        this.totalRequests = 0;
+        this.activeRequests = 0;
+        this.broadcastStats();
+        return this.getStats();
     }
 
     // --- Server-Sent Events (SSE) Canlı İletim Sistemi ---
