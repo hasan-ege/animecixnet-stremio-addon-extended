@@ -25,3 +25,16 @@ services:
       - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
     depends_on:
       - animecix-addon
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: animecix-cloudflared
+    restart: unless-stopped
+    command:
+      - "tunnel"
+      - "--no-autoupdate"
+      - "--url"
+      - "http://animecix-addon:7000"
+    depends_on:
+      - animecix-addon
+
