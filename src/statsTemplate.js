@@ -1,6 +1,6 @@
 /**
  * AnimeciX Stremio Eklentisi - Canlı Aktif Kullanıcı & İstatistik Paneli Arayüzü
- * Gerçek zamanlı SSE (Server-Sent Events) ve anlık sayaç akışı destekli
+ * Gerçek zamanlı SSE (Server-Sent Events), kullanıcı bazlı özel log modalı ve anlık sayaç akışı destekli
  */
 
 function getStatsHTML(baseUrl) {
@@ -52,7 +52,7 @@ function getStatsHTML(baseUrl) {
         }
 
         .container {
-            max-width: 1240px;
+            max-width: 1260px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
@@ -123,7 +123,7 @@ function getStatsHTML(baseUrl) {
         .header-right {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
@@ -415,16 +415,17 @@ function getStatsHTML(baseUrl) {
             vertical-align: middle;
         }
 
-        tr {
+        tr.user-row {
+            cursor: pointer;
             transition: background 0.2s ease;
         }
 
-        tr:hover td {
-            background: rgba(255, 255, 255, 0.025);
+        tr.user-row:hover td {
+            background: rgba(139, 92, 246, 0.07);
         }
 
         tr.just-updated td {
-            background: rgba(139, 92, 246, 0.15) !important;
+            background: rgba(139, 92, 246, 0.18) !important;
             transition: background 0.8s ease;
         }
 
@@ -497,6 +498,28 @@ function getStatsHTML(baseUrl) {
 
         .status-dot.active { background: #10b981; box-shadow: 0 0 8px #10b981; }
         .status-dot.idle { background: #f59e0b; }
+
+        .btn-log {
+            background: rgba(139, 92, 246, 0.18);
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            color: #c4b5fd;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-log:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #ffffff;
+            transform: translateY(-1px);
+        }
 
         .empty-state {
             text-align: center;
@@ -587,6 +610,200 @@ function getStatsHTML(baseUrl) {
             flex-shrink: 0;
         }
 
+        /* Kullanıcı Özel Log Modalı (Glassmorphism Modal) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(5, 6, 12, 0.82);
+            backdrop-filter: blur(12px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-box {
+            background: #141724;
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 820px;
+            max-height: 88vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
+            overflow: hidden;
+            animation: slideUp 0.22s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(22px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .modal-header {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .modal-user-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .modal-avatar {
+            font-size: 32px;
+            background: rgba(139, 92, 246, 0.15);
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            flex-shrink: 0;
+        }
+
+        .modal-title h2 {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-title p {
+            font-size: 12.5px;
+            color: var(--text-dim);
+            margin-top: 3px;
+        }
+
+        .modal-close {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+        }
+
+        .modal-close:hover {
+            color: #ffffff;
+            background: rgba(244, 63, 94, 0.3);
+            border-color: rgba(244, 63, 94, 0.5);
+        }
+
+        .modal-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            padding: 14px 24px;
+            background: rgba(0, 0, 0, 0.25);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .m-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .m-stat .m-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .m-stat .m-val {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .modal-body {
+            padding: 20px 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-grow: 1;
+        }
+
+        .log-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: var(--radius-sm);
+            gap: 12px;
+            font-size: 13px;
+            transition: background 0.15s ease;
+        }
+
+        .log-row:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .log-main {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .log-header-line {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .log-time {
+            font-family: ui-monospace, monospace;
+            font-size: 11.5px;
+            color: var(--text-muted);
+        }
+
+        .log-url {
+            font-family: ui-monospace, monospace;
+            font-size: 11.5px;
+            color: var(--text-dim);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
         /* Özel Kaydırma Çubuğu */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -599,6 +816,7 @@ function getStatsHTML(baseUrl) {
             .header-info h1 { font-size: 18px; }
             .stat-value { font-size: 26px; }
             .search-box { width: 100%; }
+            .modal-stats { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -732,7 +950,7 @@ function getStatsHTML(baseUrl) {
         <div class="users-panel">
             <div class="panel-toolbar">
                 <div class="panel-title" style="margin: 0; padding: 0; border: none;">
-                    <span>👥 Aktif Kullanıcı Listesi</span>
+                    <span>👥 Aktif Kullanıcı Listesi <small style="font-size: 12px; font-weight: normal; color: var(--text-dim); margin-left: 8px;">(Kullanıcıya tıklayarak tüm loglarını görebilirsiniz)</small></span>
                 </div>
                 <input type="text" class="search-box" id="searchInput" placeholder="🔍 İsim, cihaz veya IP ara..." oninput="renderTable()">
             </div>
@@ -745,13 +963,14 @@ function getStatsHTML(baseUrl) {
                             <th>Cihaz / Platform</th>
                             <th>Son Eylem / İstek</th>
                             <th>Son Görülme</th>
-                            <th>İstek Sayısı</th>
+                            <th>İstekler</th>
                             <th>Durum</th>
+                            <th>İşlem / Loglar</th>
                         </tr>
                     </thead>
                     <tbody id="usersTableBody">
                         <tr>
-                            <td colspan="6">
+                            <td colspan="7">
                                 <div class="empty-state">
                                     <div class="empty-icon">📺</div>
                                     <p>Şu anda aktif kullanıcı bulunmuyor.<br>Stremio'da bir anime izlendiğinde veya tıklandığında burada <strong>anında</strong> görünecektir.</p>
@@ -764,11 +983,45 @@ function getStatsHTML(baseUrl) {
         </div>
     </div>
 
+    <!-- Kullanıcı Özel Log Modalı (Detaylı İstek Geçmişi) -->
+    <div id="userLogsModal" class="modal-overlay" onclick="closeUserLogs(event)">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div class="modal-user-info">
+                    <div class="modal-avatar" id="modalAvatar">🥔</div>
+                    <div class="modal-title">
+                        <h2><span id="modalNickname">strong-potato</span> <span class="version-badge" id="modalStatusBadge">🟢 Aktif</span></h2>
+                        <p id="modalUserMeta">Stremio (Android) • 176.240.***</p>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeUserLogs()">&times;</button>
+            </div>
+            <div class="modal-stats">
+                <div class="m-stat">
+                    <span class="m-label">Toplam İstek</span>
+                    <span class="m-val" id="modalTotalReq">0</span>
+                </div>
+                <div class="m-stat">
+                    <span class="m-label">İlk Görülme</span>
+                    <span class="m-val" id="modalFirstSeen">--:--:--</span>
+                </div>
+                <div class="m-stat">
+                    <span class="m-label">Son İstek Zamanı</span>
+                    <span class="m-val" id="modalLastSeen">Şimdi</span>
+                </div>
+            </div>
+            <div class="modal-body" id="modalLogsContainer">
+                <!-- Kullanıcı logları buraya render edilir -->
+            </div>
+        </div>
+    </div>
+
     <script>
         let isPaused = false;
         let latestData = null;
         let eventSource = null;
         let localUptimeSec = 0;
+        let activeModalUserId = null;
         const knownUsers = new Map(); // id -> lastSeen
 
         const NOUN_EMOJIS = {
@@ -856,6 +1109,11 @@ function getStatsHTML(baseUrl) {
             renderDeviceDistribution(data.cihazDagilimi, data.aktifKullanici5Dk);
             renderActivityFeed(data.sonAktiviteler);
             renderTable();
+
+            // Eğer modal açıksa içindeki logları anında canlı güncelle
+            if (activeModalUserId) {
+                renderModalLogs();
+            }
         }
 
         function renderDeviceDistribution(devices, total) {
@@ -927,7 +1185,7 @@ function getStatsHTML(baseUrl) {
             });
 
             if (filtered.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6">' +
+                tbody.innerHTML = '<tr><td colspan="7">' +
                     '<div class="empty-state">' +
                         '<div class="empty-icon">📺</div>' +
                         '<p>' + (search ? 'Aramanıza uygun kullanıcı bulunamadı.' : 'Şu anda aktif kullanıcı bulunmuyor.<br>Stremio\\'da bir anime izlendiğinde veya tıklandığında burada <strong>anında</strong> görünecektir.') + '</p>' +
@@ -945,13 +1203,14 @@ function getStatsHTML(baseUrl) {
                 const actionClass = getActionClass(u.eylemTuru);
                 const relTime = formatRelativeTime(diffSec);
                 const emoji = getNicknameEmoji(u.nickname);
+                const logCount = u.logs ? u.logs.length : 0;
 
                 // Yeni istek geldiğinde yanıp sönen efekt
                 const prevTime = knownUsers.get(u.id);
                 const isFresh = prevTime && (u.sonGorulmeMs > prevTime);
                 knownUsers.set(u.id, u.sonGorulmeMs);
 
-                html += '<tr class="' + (isFresh ? 'just-updated' : '') + '">' +
+                html += '<tr class="user-row ' + (isFresh ? 'just-updated' : '') + '" onclick="openUserLogs(\\'' + u.id + '\\')" title="Detaylı log geçmişini görmek için tıklayın">' +
                     '<td>' +
                         '<div class="user-cell">' +
                             '<span class="nickname-badge"><span class="avatar-icon">' + emoji + '</span>' + (u.nickname || 'anon') + '</span>' +
@@ -966,10 +1225,78 @@ function getStatsHTML(baseUrl) {
                         '<span class="status-dot ' + (isActive ? 'active' : 'idle') + '"></span>' +
                         '<span>' + (isActive ? '🟢 Aktif' : '🟡 Beklemede') + '</span>' +
                     '</td>' +
+                    '<td>' +
+                        '<button class="btn-log" onclick="event.stopPropagation(); openUserLogs(\\'' + u.id + '\\')">' +
+                            '📜 Loglar (' + logCount + ')' +
+                        '</button>' +
+                    '</td>' +
                 '</tr>';
             }
             tbody.innerHTML = html;
         }
+
+        // --- Kullanıcı Özel Log Modalı Fonksiyonları ---
+
+        function openUserLogs(userId) {
+            activeModalUserId = userId;
+            renderModalLogs();
+            document.getElementById('userLogsModal').classList.add('active');
+        }
+
+        function closeUserLogs(e) {
+            if (e && e.target !== document.getElementById('userLogsModal') && !e.target.classList.contains('modal-close')) {
+                return;
+            }
+            activeModalUserId = null;
+            document.getElementById('userLogsModal').classList.remove('active');
+        }
+
+        function renderModalLogs() {
+            if (!activeModalUserId || !latestData) return;
+            const list = latestData.aktifKullaniciListesi || [];
+            const user = list.find(u => u.id === activeModalUserId);
+            if (!user) return;
+
+            const emoji = getNicknameEmoji(user.nickname);
+            document.getElementById('modalAvatar').textContent = emoji;
+            document.getElementById('modalNickname').textContent = user.nickname || 'anon';
+            document.getElementById('modalStatusBadge').textContent = user.durum === 'aktif' ? '🟢 Aktif' : '🟡 Beklemede';
+            document.getElementById('modalUserMeta').textContent = user.cihaz + ' • ' + user.ip;
+            document.getElementById('modalTotalReq').textContent = user.toplamIstek;
+            document.getElementById('modalFirstSeen').textContent = user.ilkGorulme || '--:--:--';
+            document.getElementById('modalLastSeen').textContent = user.sonGorulme;
+
+            const container = document.getElementById('modalLogsContainer');
+            const logs = user.logs || [];
+
+            if (logs.length === 0) {
+                container.innerHTML = '<div class="empty-state" style="padding: 24px;"><p>Bu kullanıcı için henüz kayıtlı istek kaydı bulunmuyor.</p></div>';
+                return;
+            }
+
+            let html = '';
+            for (const log of logs) {
+                const actionClass = getActionClass(log.category);
+                html += '<div class="log-row">' +
+                    '<div class="log-main">' +
+                        '<div class="log-header-line">' +
+                            '<span class="log-time">' + log.time + '</span>' +
+                            '<span class="method-badge">' + log.method + '</span>' +
+                            '<span class="action-tag ' + actionClass + '">' + log.badge + ' ' + (log.action || '') + '</span>' +
+                        '</div>' +
+                        '<div class="log-url" title="' + log.path + '">' + log.path + '</div>' +
+                    '</div>' +
+                '</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        // ESC tuşuyla modalı kapatma
+        window.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeUserLogs();
+            }
+        });
 
         // SSE Canlı Bağlantı Fonksiyonu
         function connectSSE() {
@@ -1032,6 +1359,7 @@ function getStatsHTML(baseUrl) {
                 if (res.ok) {
                     const data = await res.json();
                     knownUsers.clear();
+                    closeUserLogs();
                     updateDashboard(data);
                 }
             } catch (err) {
@@ -1078,8 +1406,11 @@ function getStatsHTML(baseUrl) {
             const now = new Date();
             document.getElementById('istanbulClock').textContent = '⏱️ ' + now.toLocaleTimeString('tr-TR', { timeZone: 'Europe/Istanbul' });
 
-            // Tablodaki zamanları güncelle
+            // Tablodaki ve açıksa modaldeki zamanları güncelle
             renderTable();
+            if (activeModalUserId) {
+                renderModalLogs();
+            }
         }, 1000);
 
         // Her 2 saniyede bir arka planda tam veri senkronizasyonu yap (F5 gereksinimini %100 sıfırlar)

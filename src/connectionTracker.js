@@ -192,6 +192,17 @@ class ConnectionTracker {
         const nickname = getNickname(rawIp);
         const newDevice = parseClientInfo(req);
 
+        const logEntry = {
+            id: `${now}-${Math.random().toString(36).substr(2, 4)}`,
+            timestamp: now,
+            time: new Date(now).toLocaleTimeString('tr-TR', { timeZone: 'Europe/Istanbul' }),
+            method: req.method || 'GET',
+            path: req.url,
+            action: action.title,
+            badge: action.badge,
+            category: action.type
+        };
+
         if (isNew) {
             client = {
                 id: clientId,
@@ -200,10 +211,12 @@ class ConnectionTracker {
                 nickname: nickname,
                 device: newDevice,
                 firstSeen: now,
+                firstSeenTime: new Date(now).toLocaleTimeString('tr-TR', { timeZone: 'Europe/Istanbul' }),
                 lastSeen: now,
                 lastUrl: req.url,
                 lastAction: action,
-                requestCount: 1
+                requestCount: 1,
+                logs: [logEntry]
             };
             this.clients.set(clientId, client);
         } else {
@@ -211,6 +224,11 @@ class ConnectionTracker {
             client.lastUrl = req.url;
             client.lastAction = action;
             client.requestCount++;
+            if (!client.logs) client.logs = [];
+            client.logs.unshift(logEntry);
+            if (client.logs.length > 50) {
+                client.logs.pop();
+            }
             // Aynı IP'den daha spesifik bir Stremio cihazı geldiğinde cihazı güncelle
             if (newDevice.includes('Stremio') || client.device === 'Web / API') {
                 client.device = newDevice;
@@ -328,6 +346,7 @@ class ConnectionTracker {
                     nickname: client.nickname || getNickname(client.ip),
                     ip: client.maskedIp,
                     cihaz: client.device,
+                    ilkGorulme: client.firstSeenTime || new Date(client.firstSeen).toLocaleTimeString('tr-TR', { timeZone: 'Europe/Istanbul' }),
                     sonIstek: client.lastUrl,
                     sonEylem: client.lastAction ? client.lastAction.title : 'Bilinmiyor',
                     eylemRozet: client.lastAction ? client.lastAction.badge : '🌐 İstek',
@@ -336,7 +355,8 @@ class ConnectionTracker {
                     sonGorulmeSn: diffSec,
                     sonGorulme: diffSec === 0 ? 'Şimdi' : `${diffSec} sn önce`,
                     toplamIstek: client.requestCount,
-                    durum: isActiveNow ? 'aktif' : 'bosta'
+                    durum: isActiveNow ? 'aktif' : 'bosta',
+                    logs: client.logs ? client.logs.slice(0, 50) : []
                 });
             }
         }
