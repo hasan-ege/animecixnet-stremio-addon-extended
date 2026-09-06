@@ -25,6 +25,7 @@ const calendarService = require("./src/calendarService");
 const titleBrowseService = require("./src/titleBrowseService");
 const { signer } = require("./src/signer");
 const { connectionTracker } = require("./src/connectionTracker");
+const { getStatsHTML } = require("./src/statsTemplate");
 const instance = Axios.create();
 const axios = setupCache(instance);
 
@@ -115,23 +116,23 @@ app.use((req, res, next) => {
         return res.status(200).end();
     }
 
-    const { isNew, client } = connectionTracker.onStart(req);
+    const { isNew, client, isIgnored } = connectionTracker.onStart(req);
 
     let ended = false;
     const endReq = () => {
         if (!ended) {
             ended = true;
-            connectionTracker.onEnd();
+            connectionTracker.onEnd(isIgnored);
         }
     };
     res.on('finish', endReq);
     res.on('close', endReq);
 
-    if (!req.url.startsWith('/images') && !req.url.startsWith('/subs')) {
+    if (!isIgnored && !req.url.startsWith('/images') && !req.url.startsWith('/subs')) {
         const activeCount = connectionTracker.getActiveCount(5 * 60 * 1000);
         const inFlight = connectionTracker.activeRequests;
 
-        if (isNew) {
+        if (isNew && client) {
             console.log(`✨ [Yeni Bağlantı] 🟢 Yeni kullanıcı bağlandı: ${client.maskedIp} (${client.device}) | 👥 Toplam Aktif: ${activeCount}`);
         }
 
@@ -425,14 +426,34 @@ app.get('/', function (req, res) {
     return res.send(getLandingHTML(MANIFEST, baseUrl));
 });
 
-// Canlı bağlantı ve kullanıcı istatistikleri
+// Canlı bağlantı ve kullanıcı istatistikleri arayüzü ve API uç noktaları
 app.get('/stats', function (req, res) {
+    const wantsJson = req.query.json === 'true' || 
+                      req.query.format === 'json' || 
+                      (req.headers['accept'] && req.headers['accept'].includes('application/json') && !req.headers['accept'].includes('text/html'));
+
+    if (wantsJson) {
+        res.setHeader('Content-Type', 'application/json; charset=utf-8');
+        res.setHeader('Cache-Control', 'no-cache');
+        return res.json(connectionTracker.getStats());
+    }
+
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'no-cache');
-    return res.json({
-        status: "online",
-        zaman: new Date().toLocaleTimeString('tr-TR', { timeZone: 'Europe/Istanbul' }),
-        ...connectionTracker.getStats()
-    });
+    const baseUrl = getBaseUrl(req);
+    return res.send(getStatsHTML(baseUrl));
+});
+
+// JSON İstatistik API'si
+app.get('/api/stats', function (req, res) {
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-cache');
+    return res.json(connectionTracker.getStats());
+});
+
+// SSE (Server-Sent Events) Gerçek Zamanlı Veri Akışı
+app.get('/api/stats/stream', function (req, res) {
+    connectionTracker.addSseClient(res);
 });
 
 app.get(['/manifest.json', '/addon/manifest.json', '/:userConf/manifest.json'], function (req, res) {

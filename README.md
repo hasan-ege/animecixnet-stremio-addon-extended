@@ -177,8 +177,13 @@ Eklenti, bağlanan kullanıcıları ve anlık HTTP isteklerini gerçek zamanlı 
   📊 [Canlı Durum] 👥 2 aktif kullanıcı (Son 5 dk: 2, Son 1 dk: 1) | ⚡ 1 anlık istek | 📈 Toplam: 45 istek
   ```
 
-- **Tarayıcı / API Üzerinden Canlı Durum:**
-  `https://nineteen-unwritten-similarly.ngrok-free.dev/stats` adresine girerek anlık aktif kullanıcı sayısını, bağlanan cihaz türlerini (Windows, Android, Smart TV, Web vb.) ve son yapılan istekleri JSON olarak görebilirsiniz.
+- **Canlı Web Arayüzü & İstatistik Paneli (Dashboard UI):**
+  `https://nineteen-unwritten-similarly.ngrok-free.dev/stats` (veya yerelde `http://localhost:7000/stats`) adresini herhangi bir tarayıcıda açtığınızda; sayfa yenilemeye gerek kalmadan **SSE (Server-Sent Events) ile anlık akan** görsel panel açılır:
+  - 👥 **Anlık Aktif Kullanıcılar** (Son 1 dk & 5 dk)
+  - 📱 **Bağlı Cihaz Dağılımı** (Android, Windows, Smart TV, Web, iOS, Linux)
+  - 🎬 **Son Yapılan Eylemler** (Hangi animenin izlendiği, takvim gezintisi veya arama)
+  - ⚡ **Canlı İstek Akışı (Feed)** & Sistem RAM / Uptime monitörü
+  - 📋 Ham JSON API çıktısı için: `https://nineteen-unwritten-similarly.ngrok-free.dev/api/stats` veya `/stats?json=true`
 
 ---
 
