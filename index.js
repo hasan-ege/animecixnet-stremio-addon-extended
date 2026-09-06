@@ -26,6 +26,7 @@ const titleBrowseService = require("./src/titleBrowseService");
 const { signer } = require("./src/signer");
 const { connectionTracker } = require("./src/connectionTracker");
 const { getStatsHTML } = require("./src/statsTemplate");
+const { resolveKitsuToAnimecix, resolveImdbToAnimecix } = require("./src/idResolver");
 const instance = Axios.create();
 const axios = setupCache(instance);
 
@@ -107,13 +108,21 @@ app.use('/images', express.static(path.join(__dirname, "static", "images"), { ma
 app.use('/subs', express.static(path.join(__dirname, "static", "subs"), { maxAge: '1d' }));
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    const origin = req.headers.origin;
+    if (origin) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+    } else {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+    }
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, HEAD');
-    res.setHeader('Access-Control-Allow-Headers', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, ngrok-skip-browser-warning, Accept, Origin, X-Requested-With, *');
+    res.setHeader('Access-Control-Expose-Headers', '*');
     res.setHeader('ngrok-skip-browser-warning', 'true');
 
     if (req.method === 'OPTIONS') {
-        return res.status(200).end();
+        res.setHeader('Access-Control-Max-Age', '86400');
+        return res.status(204).end();
     }
 
     const { isNew, client, isIgnored } = connectionTracker.onStart(req);
@@ -144,9 +153,16 @@ app.use((req, res, next) => {
 // Altyazı URL eşleşmeleri için sınırlı bellek önbelleği
 const subsCache = new NodeCache({ stdTTL: 2 * 60 * 60, checkperiod: 300 });
 
-var respond = function (res, data) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', '*');
+var respond = function (res, data, req = null) {
+    const origin = req?.headers?.origin;
+    if (origin) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+        res.setHeader('Access-Control-Allow-Credentials', 'true');
+    } else if (!res.getHeader('Access-Control-Allow-Origin')) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+    }
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, ngrok-skip-browser-warning, Accept, Origin, X-Requested-With, *');
+    res.setHeader('Access-Control-Expose-Headers', '*');
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.send(data);
 };
@@ -368,7 +384,10 @@ function getLandingHTML(manifest, baseUrl) {
             </button>
         </div>
 
-        <p class="hint">Stremio otomatik açılmadıysa yukarıdaki <strong>Stremio ile Kur</strong> butonuna tıklayabilirsiniz.</p>
+        <p class="hint">
+            Stremio otomatik açılmadıysa yukarıdaki <strong>Stremio ile Kur</strong> butonuna tıklayabilirsiniz.<br>
+            <span style="color: #c4b5fd; display: inline-block; margin-top: 6px;">💡 Stremio Web kullanıcıları: Tarayıcınızda ilk girişte ngrok güvenlik ekranı çıkarsa bir defaya mahsus <strong>"Visit Site"</strong> butonuna basınız.</span>
+        </p>
     </div>
 
     <div id="toast">Manifest linki kopyalandı!</div>
@@ -411,13 +430,21 @@ function getLandingHTML(manifest, baseUrl) {
 }
 
 // Tarayıcıdan girildiğinde otomatik Stremio'ya yönlendirir / Kurulum arayüzü sunar;
-// API veya Stremio istemcisi girerse 302 ile manifest.json'a yönlendirir.
+// Stremio Web, mobil veya API girerse 302 yerine doğrudan manifest.json döndürür (CORS hatasını önler).
 app.get('/', function (req, res) {
     const acceptHeader = req.headers['accept'] || '';
-    const isBrowser = acceptHeader.includes('text/html');
+    const origin = req.headers['origin'] || '';
+    const isBrowser = acceptHeader.includes('text/html') && !origin.includes('stremio') && req.headers['sec-fetch-dest'] !== 'empty';
 
     if (!isBrowser) {
-        return res.redirect(302, '/manifest.json');
+        res.setHeader('Cache-Control', 'public, max-age=3600');
+        const baseUrl = getBaseUrl(req);
+        const dynamicManifest = {
+            ...MANIFEST,
+            logo: `${baseUrl}/images/animecix.png`,
+            background: `${baseUrl}/images/background.png`
+        };
+        return respond(res, dynamicManifest, req);
     }
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -472,7 +499,7 @@ app.get(['/manifest.json', '/addon/manifest.json', '/:userConf/manifest.json'], 
         logo: `${baseUrl}/images/animecix.png`,
         background: `${baseUrl}/images/background.png`
     };
-    return respond(res, dynamicManifest);
+    return respond(res, dynamicManifest, req);
 });
 
 
@@ -495,7 +522,9 @@ async function handleCatalogRequest(req, res) {
     try {
         let { type, id, extraArgs, genre, search } = req.params;
         id = (id || '').replace(".json", "");
+        const effectiveType = (type === "movie" ? "movie" : "series");
         const extra = parseCatalogExtra(extraArgs, req.query);
+
         if (genre) {
             const cleanGenre = decodeURIComponent(genre.replace(".json", ""));
             if (cleanGenre.includes("&")) {
@@ -513,9 +542,13 @@ async function handleCatalogRequest(req, res) {
             }
         }
 
-        // 1. Takvim Kataloğu (Kategori Takvimi: Bugün, Pazartesi, Salı, ... Tüm Hafta)
-        if (id.startsWith("animecix_takvim")) {
-            let metas = await calendarService.getCatalogMetas(id, extra.genre);
+        // 1. Takvim Kataloğu (Kategori Takvimi: Bugün, Pazartesi, Salı, ... Tüm Hafta & animecix-calendar uyumluluğu)
+        if (id.startsWith("animecix_takvim") || id.includes("calendar") || id === "animecix-calendar") {
+            let genreFilter = extra.genre;
+            if (!genreFilter && (extraArgs === "today" || extraArgs === "today.json")) {
+                genreFilter = "Bugün";
+            }
+            let metas = await calendarService.getCatalogMetas(id, genreFilter);
             if (extra.search) {
                 const sLow = extra.search.toLowerCase();
                 metas = metas.filter(m => (m.name || '').toLowerCase().includes(sLow));
@@ -526,13 +559,13 @@ async function handleCatalogRequest(req, res) {
                 cacheMaxAge: 300,
                 staleRevalidate: 600,
                 staleError: 1800
-            });
+            }, req);
         }
 
         // 2. Ana AnimeciX Dizileri & Filmleri Kataloğu (Tüm Veritabanı: 2500+ Dizi, 500+ Film)
         if (id === "animecix") {
             const metas = await titleBrowseService.getBrowseMetas({
-                type: type === "movie" ? "movie" : "series",
+                type: effectiveType,
                 genre: extra.genre || null,
                 search: extra.search || null,
                 skip: extra.skip ? parseInt(extra.skip, 10) : 0,
@@ -543,12 +576,12 @@ async function handleCatalogRequest(req, res) {
                 cacheMaxAge: CACHE_MAX_AGE,
                 staleRevalidate: STALE_REVALIDATE_AGE,
                 staleError: STALE_ERROR_AGE
-            });
+            }, req);
         }
 
         // 3. Özel Ana Sayfa Listeleri (Son Çıkanlar, Sezonun İncileri, En İyiler)
         if (id.startsWith("animecix")) {
-            let metas = await homepage.getCatalogMetas(id, type, extra.genre);
+            let metas = await homepage.getCatalogMetas(id, effectiveType, extra.genre);
             if (extra.search) {
                 const sLow = extra.search.toLowerCase();
                 metas = metas.filter(m => (m.name || '').toLowerCase().includes(sLow));
@@ -558,13 +591,13 @@ async function handleCatalogRequest(req, res) {
                 cacheMaxAge: CACHE_MAX_AGE,
                 staleRevalidate: STALE_REVALIDATE_AGE,
                 staleError: STALE_ERROR_AGE
-            });
+            }, req);
         }
 
-        return respond(res, { metas: [] });
+        return respond(res, { metas: [] }, req);
     } catch (error) {
         if (error) console.log(error);
-        return respond(res, { metas: [] });
+        return respond(res, { metas: [] }, req);
     }
 }
 
@@ -692,7 +725,7 @@ app.get(metaRoutes, async (req, res, next) => {
                 if (metaObj.name && !metaObj.name.startsWith("Anime ")) {
                     myCache.set(findId, metaObj);
                 }
-                return respond(res, { meta: metaObj, cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE });
+                return respond(res, { meta: metaObj, cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE }, req);
             } else {
                 //movie
                 var animes = await searchVideo.SearchVideoDetail(type, findId, find.name_english, 1);
@@ -716,13 +749,14 @@ app.get(metaRoutes, async (req, res, next) => {
                 if (metaObj.name && !metaObj.name.startsWith("Anime ")) {
                     myCache.set(findId, metaObj);
                 }
-                return respond(res, { meta: metaObj, cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE });
+                return respond(res, { meta: metaObj, cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE }, req);
             }
         } else {
-            return respond(res, { meta: {} });
+            return respond(res, { meta: {} }, req);
         }
     } catch (error) {
         if (error) console.log(error);
+        return respond(res, { meta: {} }, req);
     }
 
 })
@@ -746,50 +780,100 @@ app.get(streamRoutes, async (req, res, next) => {
             var detail = {};
             var typeValue;
 
-            // ID'den akıllı ayrıştırma fallback (0-titleId-season-episode veya 0-titleId:season:episode)
-            const cleanId = decodeURIComponent(id).replace(/^0-/, "");
-            const parts = cleanId.split(/[-:]/);
-            const titleId = parts[0];
+            const rawId = decodeURIComponent(id);
 
-            // Önce myCache içerisindeki meta nesnesinden bulmaya çalış
-            const cachedMeta = myCache.get(titleId);
-            if (cachedMeta && Array.isArray(cachedMeta.videos)) {
-                const found = cachedMeta.videos.find(e => e.id === id || e.id === `0-${id}` || (parts.length >= 3 && e.season == parts[1] && e.episode == parts[2]));
-                if (found) {
-                    detail = found;
+            // 1. Kitsu ID Desteği (kitsu:46171:1, kitsu:46171:1:1 veya kitsu:46171)
+            if (rawId.startsWith('kitsu:')) {
+                const kParts = rawId.split(':');
+                const kitsuId = kParts[1];
+                let season = 1;
+                let episode = 1;
+
+                if (kParts.length >= 4) {
+                    season = parseInt(kParts[2], 10) || 1;
+                    episode = parseInt(kParts[3], 10) || 1;
+                } else if (kParts.length >= 3) {
+                    episode = parseInt(kParts[2], 10) || 1;
+                }
+
+                const animecixTitleId = await resolveKitsuToAnimecix(kitsuId);
+                if (animecixTitleId) {
+                    detail = {
+                        _id: animecixTitleId,
+                        season: season,
+                        episode: episode
+                    };
                 }
             }
+            // 2. IMDb ID Desteği (tt2560140:1:1 veya tt2560140)
+            else if (rawId.startsWith('tt')) {
+                const ttParts = rawId.split(':');
+                const imdbId = ttParts[0];
+                let season = 1;
+                let episode = 1;
 
-            if ((!detail || !detail._id) && parts.length >= 3) {
-                detail = {
-                    _id: parts[0],
-                    season: parseInt(parts[1], 10) || 1,
-                    episode: parseInt(parts[2], 10) || 1
-                };
-            } else if ((!detail || !detail._id) && parts.length === 1 && !isNaN(parseInt(parts[0], 10))) {
-                // Eski eklenti versiyonlarının kaydettiği doğrudan bölüm ID'si (örn: 0-127036)
-                const epRes = await axios.get(`https://animecix.tv/secure/episodes/${parts[0]}`, { headers: header }).catch(() => null);
-                if (epRes && epRes.data && epRes.data.data) {
+                if (ttParts.length >= 3) {
+                    season = parseInt(ttParts[1], 10) || 1;
+                    episode = parseInt(ttParts[2], 10) || 1;
+                } else if (ttParts.length >= 2) {
+                    episode = parseInt(ttParts[1], 10) || 1;
+                }
+
+                const animecixTitleId = await resolveImdbToAnimecix(imdbId);
+                if (animecixTitleId) {
                     detail = {
-                        _id: epRes.data.data.title_id,
-                        season: epRes.data.data.season_number || 1,
-                        episode: epRes.data.data.episode_number || 1
+                        _id: animecixTitleId,
+                        season: season,
+                        episode: episode
                     };
-                } else {
+                }
+            }
+            // 3. Standart AnimeciX ID Desteği (0-titleId-season-episode veya 0-titleId:season:episode)
+            else {
+                const cleanId = rawId.replace(/^0-/, "");
+                const parts = cleanId.split(/[-:]/);
+                const titleId = parts[0];
+
+                // Önce myCache içerisindeki meta nesnesinden bulmaya çalış
+                const cachedMeta = myCache.get(titleId);
+                if (cachedMeta && Array.isArray(cachedMeta.videos)) {
+                    const found = cachedMeta.videos.find(e => e.id === id || e.id === `0-${id}` || (parts.length >= 3 && e.season == parts[1] && e.episode == parts[2]));
+                    if (found) {
+                        detail = found;
+                    }
+                }
+
+                if ((!detail || !detail._id) && parts.length >= 3) {
                     detail = {
                         _id: parts[0],
-                        season: 1,
-                        episode: 1
+                        season: parseInt(parts[1], 10) || 1,
+                        episode: parseInt(parts[2], 10) || 1
                     };
+                } else if ((!detail || !detail._id) && parts.length === 1 && !isNaN(parseInt(parts[0], 10))) {
+                    // Eski eklenti versiyonlarının kaydettiği doğrudan bölüm ID'si (örn: 0-127036)
+                    const epRes = await axios.get(`https://animecix.tv/secure/episodes/${parts[0]}`, { headers: header }).catch(() => null);
+                    if (epRes && epRes.data && epRes.data.data) {
+                        detail = {
+                            _id: epRes.data.data.title_id,
+                            season: epRes.data.data.season_number || 1,
+                            episode: epRes.data.data.episode_number || 1
+                        };
+                    } else {
+                        detail = {
+                            _id: parts[0],
+                            season: 1,
+                            episode: 1
+                        };
+                    }
                 }
             }
 
-            if (typeof (detail) != "undefined") {
+            if (typeof (detail) != "undefined" && detail._id) {
                 // initialize defaults
                 let streamLinks = [];
                 let typeValue = [];
 
-                if (type === "series") {
+                if (type === "series" || type === "anime") {
                     const getVideo = await videos.GetVideos(detail._id, detail.episode, detail.season);
                     if (Array.isArray(getVideo) && getVideo.length > 0) {
                         streamLinks = await videos.ListVideos(getVideo);
@@ -799,6 +883,13 @@ app.get(streamRoutes, async (req, res, next) => {
                     if (detail.anime && Array.isArray(detail.anime.videos) && detail.anime.videos.length > 0) {
                         streamLinks = await videos.ListVideos(detail.anime.videos);
                         typeValue = detail.anime.videos; // use raw provider objects for subtitle/caption checks
+                    } else {
+                        // Film için 1. bölüm veya videoları dene
+                        const getVideo = await videos.GetVideos(detail._id, 1, 1);
+                        if (Array.isArray(getVideo) && getVideo.length > 0) {
+                            streamLinks = await videos.ListVideos(getVideo);
+                            typeValue = getVideo;
+                        }
                     }
                 }
 
@@ -830,12 +921,16 @@ app.get(streamRoutes, async (req, res, next) => {
                         });
                     }
                 });
-                return respond(res, { streams: stream, cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE })
+                return respond(res, { streams: stream, cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE }, req);
             }
 
+            return respond(res, { streams: [] }, req);
         }
+
+        return respond(res, { streams: [] }, req);
     } catch (error) {
         if (error) console.log(error);
+        return respond(res, { streams: [] }, req);
     }
 })
 
@@ -894,7 +989,7 @@ app.get(subtitleRoutes, async (req, res, next) => {
 
                 const existingSub = path.join(__dirname, "static", "subs", id, `${id}.srt`);
                 if (fs.existsSync(existingSub)) {
-                    return respond(res, { subtitles: [subtitles], cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE });
+                    return respond(res, { subtitles: [subtitles], cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE }, req);
                 }
 
                 var downloadUrl = `${process.env.SUBTITLEAI_URL + new URL(captionUrl).pathname}`;
@@ -926,15 +1021,15 @@ app.get(subtitleRoutes, async (req, res, next) => {
                             fs.mkdirSync(subDir, { recursive: true });
                         }
                         fs.writeFileSync(path.join(subDir, `${id}.srt`), subtitle, { encoding: "utf8" });
-                        return respond(res, { subtitles: [subtitles], cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE });
+                        return respond(res, { subtitles: [subtitles], cacheMaxAge: CACHE_MAX_AGE, staleRevalidate: STALE_REVALIDATE_AGE, staleError: STALE_ERROR_AGE }, req);
                     }
                 }
             }
-            return respond(res, { subtitles: [] });
+            return respond(res, { subtitles: [] }, req);
         }
     } catch (error) {
         if (error) console.log(error);
-        return respond(res, { subtitles: [] });
+        return respond(res, { subtitles: [] }, req);
     }
 })
 

@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Versiyon-1.4.1-8A5AAB.svg" alt="Versiyon" />
+  <img src="https://img.shields.io/badge/Versiyon-1.4.2-8A5AAB.svg" alt="Versiyon" />
   <img src="https://img.shields.io/badge/Node.js-20+-green.svg" alt="Node" />
   <img src="https://img.shields.io/badge/Docker-Destekli-blue.svg" alt="Docker" />
   <img src="https://img.shields.io/badge/Stremio-v4%20%2F%20v5-purple.svg" alt="Stremio" />
@@ -19,12 +19,16 @@
 
 ## ✨ Özellikler
 
+- 🌐 **Evrensel Kitsu & IMDb (Cinemeta) Akış Desteği**:
+  - Stremio'da Kitsu, Cinemeta, Cyberflix veya Anime Kitsu üzerinden açılan herhangi bir animenin detay sayfasında AnimeciX Türkçe altyazılı yayın kaynakları otomatik olarak listelenir.
+  - `kitsu:` ve `tt` (IMDb) kimlikleri arka planda akıllı eşleme ile AnimeciX veritabanına bağlanır.
 - 📅 **Canlı Yayın Takvimi (Stremio Kategori Takvimi)**:
   - Türkiye saatine (`Europe/Istanbul`) göre çalışan haftalık anime yayın takvimi.
   - Stremio arayüzünden doğrudan kategori olarak seçilebilir: **Bugün**, **Pazartesi**, **Salı**, **Çarşamba**, **Perşembe**, **Cuma**, **Cumartesi**, **Pazar** ve **Tüm Hafta**.
   - 5 dakikalık akıllı önbellek ile gün geçişlerinde ve yeni bölüm yayınlandığında otomatik güncellenir.
-- 📺 **Geniş Arşiv (Diziler & Filmler)**:
+- 📺 **Geniş Arşiv (Diziler, Filmler & Animeler)**:
   - 2500'den fazla anime dizisi ve 500'den fazla anime filmi.
+  - Stremio'nun hem "Diziler", hem "Filmler", hem de "Anime" sekmelerinde doğrudan listelenir.
   - 39 farklı türe (Aksiyon, Dram, Komedi, Isekai, Shounen, Seinen, Romantik vb.) göre listeleme ve filtreleme.
 - 🎯 **Özel Keşfet Koleksiyonları**:
   - **Son Çıkanlar**: Platforma yeni eklenen ve güncellenen animeler.

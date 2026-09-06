@@ -1,6 +1,6 @@
 [
   {
-    "date": "2026-08-31T00:00:35.264Z",
+    "date": "2026-08-31T00:00:45.181Z",
     "episodes": [
       {
         "_id": "6a4fc2fc16ec961796276347",
@@ -1101,8 +1101,8 @@
       {
         "_id": "6a52235d5a91c3331ca2622a",
         "id": 284038,
-        "name": null,
-        "description": null,
+        "name": "Uyarı",
+        "description": "Sagume ve Inmei kendi gizli silahlarını hazırlarken bile yeniden dirilen Ramaga durdurulamaz görünüyor.",
         "translated": false,
         "poster": "https://image.tmdb.org/t/p/original/ck57fJxwaLfJpwOVS9tvdc09qtN.jpg",
         "release_date": "2026-09-01T00:00:00.000Z",
@@ -1278,7 +1278,7 @@
               "credits": [],
               "disable_update": false,
               "created_at": "2025-10-27T17:06:06.136Z",
-              "updated_at": "2026-08-29T20:40:43.383Z",
+              "updated_at": "2026-09-06T00:47:27.017Z",
               "__v": 0,
               "model_type": "season"
             }
@@ -1288,7 +1288,7 @@
     ]
   },
   {
-    "date": "2026-09-01T00:00:35.264Z",
+    "date": "2026-09-01T00:00:45.181Z",
     "episodes": [
       {
         "_id": "6a8e15b7349ff32b9287719b",
@@ -2362,7 +2362,7 @@
     ]
   },
   {
-    "date": "2026-09-02T00:00:35.264Z",
+    "date": "2026-09-02T00:00:45.181Z",
     "episodes": [
       {
         "_id": "6a8f252e73a2aff256ef0d80",
@@ -3735,7 +3735,7 @@
           "backdrop": "https://image.tmdb.org/t/p/w1280/sEagMcuLL3beaHc3ToiZicMuYSb.jpg",
           "budget": null,
           "certification": null,
-          "description": "Sularda bir dojo işleten orta yaşlı bir kılıç ustası olan Beryl Gardenant, eski öğrencisi ve Kraliyet Şövalyeleri Komutanı Allucia ortaya çıkana kadar sakin bir hayat yaşıyor! Beryl'in hayatı dramatik bir şekilde değişmek üzere! Şehir hayatı. Eski öğrenciler. Yeni arkadaşlar ve zorlu düşmanlar. Hepsi çok fazla. Ancak yıllarca süren eğitimin ardından çılgın becerilere sahip oldu ve ona \"suda kalmış kılıç ustası\" lakabı takıldı.",
+          "description": "Sularda bir dojo işleten orta yaşlı bir kılıç ustası olan Beryl Gardenant, eski öğrencisi ve Kraliyet Şövalyeleri Komutanı Allucia ortaya çıkana kadar sakin bir hayat yaşıyor! Beryl'in hayatı dramatik bir şekilde değişmek üzere! Şehir hayatı. Eski öğrenciler. Yeni arkadaşlar ve zorlu düşmanlar. Hepsi çok fazla. Ancak yıllarca süren eğitimin ardından çılgın becerilere sahip oldu ve ona \"suda kalmış kılıç ustası\" lakabı verildi.",
           "episode_count": 24,
           "fully_synced": true,
           "home_video": "https://www.youtube.com/embed/1ukoLVyCfW8?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=1ukoLVyCfW8",
@@ -3766,7 +3766,7 @@
           "name_english": "From Old Country Bumpkin to Master Swordsman",
           "name_romanji": "Katainaka no Ossan, Kensei ni Naru",
           "original_title": "片田舎のおっさん、剣聖になる",
-          "popularity": 31.854,
+          "popularity": 32.2476,
           "poster": "https://image.tmdb.org/t/p/original/ujQp5egkJOkDHx4TehlgHePFcRv.jpg",
           "quick_update": false,
           "release_date": "Sat Apr 05 2025 00:00:00 GMT+0000 (Coordinated Universal Time)",
@@ -3778,7 +3778,7 @@
           "title_type": "anime",
           "tmdb_id": 260823,
           "tmdb_vote_average": 7.3,
-          "tmdb_vote_count": 101,
+          "tmdb_vote_count": 102,
           "trailer": "https://www.youtube.com/embed/1ukoLVyCfW8?enablejsapi=1&wmode=opaque&autoplay=1",
           "type": "series",
           "year": 2025,
@@ -3898,9 +3898,9 @@
             }
           ],
           "created_at": "2025-03-22T21:29:49.388Z",
-          "updated_at": "2026-08-29T23:36:00.187Z",
+          "updated_at": "2026-09-05T23:36:09.172Z",
           "allow_update": true,
-          "__v": 76,
+          "__v": 77,
           "country": "",
           "views": null,
           "locked": false,
@@ -5658,7 +5658,7 @@
     ]
   },
   {
-    "date": "2026-09-03T00:00:35.264Z",
+    "date": "2026-09-03T00:00:45.181Z",
     "episodes": [
       {
         "_id": "6a91dcce16e607cbb92c10b0",
@@ -7729,7 +7729,7 @@
     ]
   },
   {
-    "date": "2026-09-04T00:00:35.264Z",
+    "date": "2026-09-04T00:00:45.181Z",
     "episodes": [
       {
         "_id": "6a901e9d804350a5e44b7b51",
@@ -9224,10 +9224,10 @@
       {
         "_id": "6a4950fca4c5f2861c722c25",
         "id": 283646,
-        "name": "23.Bölüm",
-        "description": null,
+        "name": "Uyurgezer Hasta",
+        "description": "Mao, mezar pisliğini yemek için hastaneden kaçan bir hastayı takip eder ve güçlü bir laneti ortaya çıkarır.",
         "translated": false,
-        "poster": null,
+        "poster": "https://image.tmdb.org/t/p/original/xfvAeInXjX0fC2gZ4WTnqbkxQZX.jpg",
         "release_date": "2026-09-05T00:00:00.000Z",
         "title_id": 12981,
         "season_number": 1,
@@ -9273,7 +9273,7 @@
           "name_english": "MAO",
           "name_romanji": "Mao",
           "original_title": "MAO",
-          "popularity": 16.6796,
+          "popularity": 18.9558,
           "poster": "https://image.tmdb.org/t/p/original/kdti4Dm7XPV0Os2Jjzd188AWTQ3.jpg",
           "quick_update": false,
           "release_date": "Sat Apr 04 2026 00:00:00 GMT+0000 (Coordinated Universal Time)",
@@ -9408,9 +9408,9 @@
           ],
           "locked": false,
           "created_at": "2025-12-27T17:04:14.917Z",
-          "updated_at": "2026-08-29T18:33:32.236Z",
+          "updated_at": "2026-09-05T18:33:38.805Z",
           "allow_update": true,
-          "__v": 34,
+          "__v": 35,
           "country": "",
           "views": null,
           "model_type": "title",
@@ -9431,7 +9431,7 @@
               "credits": [],
               "disable_update": false,
               "created_at": "2025-12-27T17:04:14.922Z",
-              "updated_at": "2026-08-29T18:33:31.917Z",
+              "updated_at": "2026-09-05T18:33:37.306Z",
               "__v": 0,
               "model_type": "season"
             }
@@ -10690,7 +10690,7 @@
     ]
   },
   {
-    "date": "2026-09-05T00:00:35.264Z",
+    "date": "2026-09-05T00:00:45.181Z",
     "episodes": [
       {
         "_id": "6a9c5139139ae0cdc908514e",
@@ -10981,6 +10981,239 @@
         }
       },
       {
+        "_id": "6a9ca67813c92d7f62c9b801",
+        "name": "Özel Bölüm 1 - Takım Liderlerinin Gerçek Duyguları",
+        "description": "Narumi, bir toplantıyı asıp bir restorana gider ancak orada adamlarının kendisi hakkında gerçekte ne düşündüklerini öğrenir.",
+        "poster": "https://image.tmdb.org/t/p/original/x29f43lpiZR96UczNXnJSdHjVYe.jpg",
+        "release_date": "2026-09-05T20:59:00.000Z",
+        "title_id": 11289,
+        "season_id": 5903,
+        "season_number": 2,
+        "episode_number": 12,
+        "allow_update": false,
+        "created_at": null,
+        "popularity": 50,
+        "credits": [],
+        "updated_at": "2026-09-05T23:32:08.250Z",
+        "id": 290644,
+        "__v": 0,
+        "model_type": "episode",
+        "title": {
+          "_id": "659bc2b7c62f1af088e12b06",
+          "adult": false,
+          "backdrop": "https://image.tmdb.org/t/p/original/9DrORnlwnjt5SeJKcuE5sqOoIdV.jpg",
+          "budget": 0,
+          "certification": null,
+          "description": "Dünya'da kaiju ortaya çıkma oranının en yüksek olduğu ülke olan Japonya, ölümcül canavarların saldırılarına yabancı değildir. Kaiju'ları etkisiz hale getirmekle görevli askeri bir organizasyon olan Japonya Savunma Gücü'ne hoş geldiniz. Kaiju cesetlerini temizleyen Kafka Hibino, her zaman bu güce katılmayı hayal etmiştir. Ancak çocukluk hayalini gerçekleştirmek için bir şans daha yakaladığında, beklenmedik bir dönüşüm geçirir. Artık kendisi de bir kaiju hâline geldiğine göre, kaiju'larla nasıl savaşabilir?",
+          "episode_count": 24,
+          "fully_synced": true,
+          "home_video": "https://www.youtube.com/embed/c3ljNZsBOxE?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=c3ljNZsBOxE",
+          "id": 11289,
+          "imdb_id": "tt21975436",
+          "is_ready": true,
+          "is_series": true,
+          "language": "ja",
+          "mal_id": 52588,
+          "mal_update": false,
+          "mal_vote_average": null,
+          "mal_vote_count": null,
+          "name": "Kaijuu 8-gou",
+          "titles": [
+            {
+              "type": "Default",
+              "title": "Kaijuu 8-gou"
+            },
+            {
+              "type": "Synonym",
+              "title": "8Kaijuu"
+            },
+            {
+              "type": "Synonym",
+              "title": "Monster #8"
+            },
+            {
+              "type": "Synonym",
+              "title": "Kaiju No.Eight"
+            },
+            {
+              "type": "Japanese",
+              "title": "怪獣8号"
+            },
+            {
+              "type": "English",
+              "title": "Kaiju No. 8"
+            }
+          ],
+          "name_english": "Kaiju No. 8 / Kaiju No. Eight",
+          "name_romanji": "Kaijuu 8-gou",
+          "original_title": "怪獣８号",
+          "popularity": 107.6409,
+          "poster": "https://image.tmdb.org/t/p/original/bJxGs0w5RAhaX4fIUQu511rvm0S.jpg",
+          "quick_update": false,
+          "release_date": "2024-04-13",
+          "revenue": null,
+          "runtime": 24,
+          "season_count": 2,
+          "series_ended": false,
+          "tagline": "",
+          "title_type": "anime",
+          "tmdb_id": 207468,
+          "tmdb_vote_average": 8.6,
+          "tmdb_vote_count": 586,
+          "trailer": "https://www.youtube.com/embed/c3ljNZsBOxE?enablejsapi=1&wmode=opaque&autoplay=1",
+          "type": "series",
+          "year": 2024,
+          "keywords": [
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc24e1",
+              "id": 193,
+              "name": "gore",
+              "display_name": "Gore",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc251c",
+              "id": 252,
+              "name": "giant monster",
+              "display_name": "Giant monster",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc24e0",
+              "id": 192,
+              "name": "based on manga",
+              "display_name": "Based on manga",
+              "type": "keyword"
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc26aa",
+              "id": 650,
+              "name": "kaiju",
+              "display_name": "Kaiju",
+              "type": "keyword",
+              "created_at": "2020-06-28T00:00:00.000Z",
+              "updated_at": "2020-06-28T00:00:00.000Z"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2540",
+              "id": 288,
+              "name": "military",
+              "display_name": "Military",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc24ee",
+              "id": 206,
+              "name": "shounen",
+              "display_name": "Shounen",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2467",
+              "id": 71,
+              "name": "anime",
+              "display_name": "Anime",
+              "type": "keyword"
+            }
+          ],
+          "genres": [
+            {
+              "_id": "64d9f6f71e010122261cb755",
+              "name": "Animation",
+              "display_name": "Animation",
+              "type": "genre",
+              "created_at": null,
+              "updated_at": null,
+              "__v": 0
+            },
+            {
+              "_id": "64da28a50403d00ac4517ee1",
+              "id": 5034,
+              "name": "Action & Adventure",
+              "display_name": "Action & Adventure",
+              "type": "genre",
+              "created_at": null,
+              "updated_at": null,
+              "__v": 0
+            },
+            {
+              "_id": "64d9fda7e20289b079bd6ffc",
+              "id": 5033,
+              "name": "Sci-Fi & Fantasy",
+              "display_name": "Sci-Fi & Fantasy",
+              "type": "genre",
+              "created_at": null,
+              "updated_at": null,
+              "__v": 0
+            }
+          ],
+          "created_at": "2024-01-08T09:39:03.492Z",
+          "updated_at": "2025-08-11T15:09:21.209Z",
+          "allow_update": false,
+          "__v": 84,
+          "country": "",
+          "views": null,
+          "locked": false,
+          "model_type": "title",
+          "seasons": [
+            {
+              "_id": "659bc2b7c62f1af088e12b0d",
+              "id": 4902,
+              "release_date": null,
+              "poster": "https://image.tmdb.org/t/p/original/493FCFUYy2TFv9QRxTMGxtiyjgi.jpg",
+              "number": 1,
+              "title_id": 11289,
+              "anime9_id": 0,
+              "title_tmdb_id": 0,
+              "allow_update": 1,
+              "episode_count": 13,
+              "fully_synced": false,
+              "overview": null,
+              "credits": [],
+              "created_at": "2024-01-08T09:39:03.503Z",
+              "updated_at": "2025-07-07T19:51:59.795Z",
+              "__v": 0,
+              "disable_update": true,
+              "name": "",
+              "model_type": "season"
+            },
+            {
+              "_id": "68670b29ea651863a3308ff8",
+              "id": 5903,
+              "release_date": "",
+              "poster": "https://image.tmdb.org/t/p/original/83yDUQVpdhv8ePy3nbTRzFaKYuQ.jpg",
+              "number": 2,
+              "title_id": 11289,
+              "anime9_id": 0,
+              "title_tmdb_id": 0,
+              "allow_update": 1,
+              "created_at": null,
+              "episode_count": 12,
+              "fully_synced": false,
+              "name": "",
+              "overview": "",
+              "credits": [],
+              "disable_update": true,
+              "updated_at": "2025-07-03T22:58:49.036Z",
+              "__v": 0,
+              "model_type": "season"
+            }
+          ]
+        }
+      },
+      {
         "_id": "6a2fd339cabd56d68389acbd",
         "id": 281306,
         "name": "82.Bölüm",
@@ -11130,7 +11363,7 @@
       {
         "_id": "6a40747c4895a620bda15f30",
         "id": 281472,
-        "name": "22.Bölüm",
+        "name": null,
         "description": null,
         "translated": false,
         "poster": null,
@@ -11313,7 +11546,7 @@
               "credits": [],
               "disable_update": false,
               "created_at": "2025-12-27T19:34:45.572Z",
-              "updated_at": "2026-08-30T01:43:11.058Z",
+              "updated_at": "2026-09-06T01:45:40.943Z",
               "__v": 0,
               "model_type": "season"
             }
@@ -12619,10 +12852,10 @@
       {
         "_id": "6a5c52989568c84dd01cc7c1",
         "id": 284655,
-        "name": "9.Bölüm",
+        "name": null,
         "description": null,
         "translated": false,
-        "poster": null,
+        "poster": "https://image.tmdb.org/t/p/original/hVDWV3ZHwR8GVRSP4Kwr4oie7Wv.jpg",
         "release_date": "2026-09-06T00:00:00.000Z",
         "title_id": 12993,
         "season_number": 1,
@@ -12641,7 +12874,7 @@
           "backdrop": "https://image.tmdb.org/t/p/w1280/iNhtAnOhqQjiw7NMHrWbUw8mh4w.jpg",
           "budget": null,
           "certification": null,
-          "description": "Majestelerinin gözde kelebeği Reirin'in prens tarafından sevilmesi gibi, kıskanç \"saray lağım faresi\" Keigetsu da sihir kullanarak onların vücutlarını ve kaderlerini değiştirir. Yaklaşan bir idamla Reirin yeni, sağlıklı bedenini kucaklarken Keigetsu, bir iç mahkeme komplosunun içine çekilen Reirin'in hayatının göründüğü gibi olmadığını öğrenir.",
+          "description": "Just as His Highness’s favored butterfly Reirin is beloved by the prince, jealous “court sewer rat” Keigetsu uses magic to swap their bodies—and their destinies. With a looming execution, Reirin embraces her new, healthy body, while Keigetsu learns Reirin’s life isn’t what it seems as she’s pulled into an inner-court conspiracy.",
           "episode_count": 11,
           "fully_synced": true,
           "home_video": "https://www.youtube.com/embed/null?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=null",
@@ -12672,7 +12905,7 @@
           "name_english": "Though I Am an Inept Villainess",
           "name_romanji": "Futsutsuka na Akujo dewa Gozaimasu ga: Suuguu Chouso Torikae Den",
           "original_title": "ふつつかな悪女ではございますが ～雛宮蝶鼠とりかえ伝～",
-          "popularity": 27.3971,
+          "popularity": 33.9004,
           "poster": "https://image.tmdb.org/t/p/original/yZHCMXL2xYS988rYxR1D8YrTzeD.jpg",
           "quick_update": false,
           "release_date": "Sun Jul 12 2026 00:00:00 GMT+0000 (Coordinated Universal Time)",
@@ -12786,9 +13019,9 @@
           ],
           "locked": false,
           "created_at": "2025-12-27T19:34:35.825Z",
-          "updated_at": "2026-08-30T01:48:16.685Z",
+          "updated_at": "2026-09-06T01:48:56.921Z",
           "allow_update": true,
-          "__v": 35,
+          "__v": 36,
           "country": "",
           "home_video_tau": "",
           "views": null,
@@ -12810,7 +13043,7 @@
               "credits": [],
               "disable_update": false,
               "created_at": "2025-12-27T19:34:35.830Z",
-              "updated_at": "2026-08-30T04:52:38.424Z",
+              "updated_at": "2026-09-06T04:53:13.680Z",
               "__v": 0,
               "model_type": "season"
             }
@@ -13022,8 +13255,403 @@
     ]
   },
   {
-    "date": "2026-09-06T00:00:35.264Z",
+    "date": "2026-09-06T00:00:45.181Z",
     "episodes": [
+      {
+        "_id": "6a946ff4d6e114fc75ab376e",
+        "name": "Dönüm Noktası 4",
+        "description": "",
+        "poster": "",
+        "release_date": "2026-09-06T19:00:00.000Z",
+        "title_id": 7350,
+        "season_id": 6269,
+        "season_number": 3,
+        "episode_number": 11,
+        "allow_update": false,
+        "created_at": null,
+        "popularity": 50,
+        "credits": [],
+        "updated_at": "2026-08-30T18:01:24.619Z",
+        "id": 289938,
+        "__v": 0,
+        "model_type": "episode",
+        "title": {
+          "locked": false,
+          "_id": "64d8a9d47354a48fcedef941",
+          "id": 7350,
+          "name": "Mushoku Tensei: Jobless Reincarnation",
+          "name_romanji": "Mushoku Tensei: Isekai Ittara Honki Dasu",
+          "name_english": "Mushoku Tensei: Jobless Reincarnation",
+          "type": "series",
+          "title_type": "anime",
+          "tmdb_vote_average": 8.5,
+          "release_date": "Mon",
+          "year": 2021,
+          "description": "34 yaşındaki Hikikomori, anne ve babasının ölümünün ardından ailesi tarafından evinden kovulur. Tahliye edildikten sonra bir grup genci aşırı hız yapan bir kamyonun çarpması sonucu ölmekten kurtarır, ancak bu süreçte hayatını kaybeder. Kendine geldiğinde kılıçlar ve büyücülükle dolu bir dünyada Rudeus Greyrat olarak yeniden doğduğunu fark eder.",
+          "genre": null,
+          "tagline": "",
+          "poster": "https://image.tmdb.org/t/p/original/gLKOYIMyKlUHW0SVdskhgf9C0yy.jpg",
+          "backdrop": "https://image.tmdb.org/t/p/w1280/j9fRIimor0AMFJR9kjZubXcABzZ.jpg",
+          "runtime": 24,
+          "trailer": "https://www.youtube.com/embed/Qx01pn9l-6g?enablejsapi=1&wmode=opaque&autoplay=1",
+          "budget": 0,
+          "revenue": null,
+          "views": 21218,
+          "popularity": 576,
+          "imdb_id": "tt13293588",
+          "tmdb_id": 94664,
+          "mal_id": 39535,
+          "mal_update": false,
+          "mal_vote_average": 8.37,
+          "mal_vote_count": 826067,
+          "season_count": 3,
+          "fully_synced": true,
+          "allow_update": false,
+          "quick_update": true,
+          "created_at": "2020-07-18T13:33:23.000Z",
+          "updated_at": "2024-09-03T13:37:26.078Z",
+          "language": "ja",
+          "original_title": "無職転生 ～異世界行ったら本気だす～",
+          "affiliate_link": null,
+          "tmdb_vote_count": 1085,
+          "certification": null,
+          "episode_count": 47,
+          "series_ended": false,
+          "is_series": true,
+          "local_vote_average": 9,
+          "show_videos": false,
+          "adult": false,
+          "videos_url_title_id_unique": "",
+          "local_vote_count": 88,
+          "replace_url": null,
+          "is_ready": true,
+          "anilist_id": 108465,
+          "next_release_date": "",
+          "next_episode_number": 11,
+          "next_episode_date": "2021-03-21T15:00:00.000Z",
+          "home_video": "https://www.youtube.com/embed/Qx01pn9l-6g?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=Qx01pn9l-6g",
+          "is_public": false,
+          "model_type": "title",
+          "keywords": [
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc24ff",
+              "id": 223,
+              "name": "magic",
+              "display_name": "Magic",
+              "type": "keyword"
+            },
+            {
+              "_id": "66718c422745d189a6f9b304",
+              "id": 5281,
+              "name": "teleportation",
+              "display_name": "teleportation",
+              "type": "keyword",
+              "created_at": null,
+              "updated_at": null,
+              "__v": 0
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc252b",
+              "id": 267,
+              "name": "reincarnation",
+              "display_name": "Reincarnation",
+              "type": "keyword"
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc2b8e",
+              "id": 1902,
+              "name": "polygamy",
+              "display_name": "Polygamy",
+              "type": "keyword",
+              "created_at": "2021-03-28T00:00:00.000Z",
+              "updated_at": "2021-03-28T00:00:00.000Z"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2584",
+              "id": 356,
+              "name": "harem",
+              "display_name": "Harem",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2501",
+              "id": 225,
+              "name": "romance",
+              "display_name": "Romance",
+              "type": "keyword"
+            },
+            {
+              "_id": "66718bba703afeb364084f0e",
+              "id": 5278,
+              "name": "displacement",
+              "display_name": "displacement",
+              "type": "keyword",
+              "created_at": null,
+              "updated_at": null,
+              "__v": 0
+            },
+            {
+              "_id": "66718bba703afeb364084f08",
+              "id": 5277,
+              "name": "second chance",
+              "display_name": "second chance",
+              "type": "keyword",
+              "created_at": null,
+              "updated_at": null,
+              "__v": 0
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2475",
+              "id": 85,
+              "name": "fantasy world",
+              "display_name": "Fantasy world",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2546",
+              "id": 294,
+              "name": "seinen",
+              "display_name": "Seinen",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2512",
+              "id": 242,
+              "name": "ecchi",
+              "display_name": "Ecchi",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2467",
+              "id": 71,
+              "name": "anime",
+              "display_name": "Anime",
+              "type": "keyword"
+            },
+            {
+              "_id": "66718be065c38df423f341c5",
+              "id": 5279,
+              "name": "search for mother",
+              "display_name": "search for mother",
+              "type": "keyword",
+              "created_at": null,
+              "updated_at": null,
+              "__v": 0
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc2880",
+              "id": 1120,
+              "name": "neet",
+              "display_name": "Neet",
+              "type": "keyword",
+              "created_at": "2021-01-18T00:00:00.000Z",
+              "updated_at": "2021-01-18T00:00:00.000Z"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2659",
+              "id": 569,
+              "name": "life challenges",
+              "display_name": "Life challenges",
+              "type": "keyword"
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc26fd",
+              "id": 733,
+              "name": "other world",
+              "display_name": "Other world",
+              "type": "keyword",
+              "created_at": "2020-07-18T00:00:00.000Z",
+              "updated_at": "2020-07-18T00:00:00.000Z"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2644",
+              "id": 548,
+              "name": "isekai",
+              "display_name": "Isekai",
+              "type": "keyword"
+            },
+            {
+              "_id": "64a9af09c4e26fab4dfc2810",
+              "id": 1008,
+              "name": "otaku",
+              "display_name": "Otaku",
+              "type": "keyword",
+              "created_at": "2021-01-03T00:00:00.000Z",
+              "updated_at": "2021-01-03T00:00:00.000Z"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2651",
+              "id": 561,
+              "name": "erotic",
+              "display_name": "Erotic",
+              "type": "keyword"
+            },
+            {
+              "created_at": null,
+              "updated_at": null,
+              "_id": "64a9af09c4e26fab4dfc2535",
+              "id": 277,
+              "name": "based on light novel",
+              "display_name": "Based on light novel",
+              "type": "keyword"
+            },
+            {
+              "_id": "66718be065c38df423f341ca",
+              "id": 5280,
+              "name": "teleport",
+              "display_name": "teleport",
+              "type": "keyword",
+              "created_at": null,
+              "updated_at": null,
+              "__v": 0
+            }
+          ],
+          "genres": [
+            {
+              "_id": "64d9f6f71e010122261cb755",
+              "name": "Animation",
+              "display_name": "Animation",
+              "type": "genre",
+              "created_at": null,
+              "updated_at": null,
+              "__v": 0
+            },
+            {
+              "_id": "64da28a50403d00ac4517ee1",
+              "id": 5034,
+              "name": "Action & Adventure",
+              "display_name": "Action & Adventure",
+              "type": "genre",
+              "created_at": null,
+              "updated_at": null,
+              "__v": 0
+            },
+            {
+              "_id": "64d9fda7e20289b079bd6ffc",
+              "id": 5033,
+              "name": "Sci-Fi & Fantasy",
+              "display_name": "Sci-Fi & Fantasy",
+              "type": "genre",
+              "created_at": null,
+              "updated_at": null,
+              "__v": 0
+            }
+          ],
+          "__v": 14,
+          "titles": [
+            {
+              "type": "Default",
+              "title": "Mushoku Tensei: Isekai Ittara Honki Dasu"
+            },
+            {
+              "type": "Synonym",
+              "title": "Jobless Reincarnation: I Will Seriously Try If I Go To Another World"
+            },
+            {
+              "type": "Japanese",
+              "title": "無職転生 ～異世界行ったら本気だす～"
+            },
+            {
+              "type": "English",
+              "title": "Mushoku Tensei: Jobless Reincarnation"
+            },
+            {
+              "type": "German",
+              "title": "Mushoku Tensei: Jobless Reincarnation"
+            },
+            {
+              "type": "French",
+              "title": "Mushoku Tensei: Jobless Reincarnation"
+            }
+          ],
+          "country": "",
+          "seasons": [
+            {
+              "_id": "64d8a9d57354a48fcedf0a0d",
+              "id": 894,
+              "release_date": null,
+              "poster": "https://image.tmdb.org/t/p/original/4vEel9ztoC3PtQFOkthVPtdlWQr.jpg",
+              "number": 1,
+              "title_id": 7350,
+              "anime9_id": 15820,
+              "title_tmdb_id": null,
+              "allow_update": 1,
+              "created_at": "2020-07-18T13:33:24.000Z",
+              "updated_at": "2026-06-24T19:15:24.389Z",
+              "episode_count": 24,
+              "fully_synced": false,
+              "overview": "34 yaşındaki başarısız bir genç bir kamyonun altında kaldığında hikayesi burada bitmiyor. Bebek olarak yeni bir dünyada reenkarne olan Rudy, her zaman istediği hayatı yaşamak için her fırsatı değerlendirecektir. Yeni arkadaşlarla, yeni edindiği bazı büyülü yeteneklerle ve her zaman hayalini kurduğu şeyleri yapma cesaretiyle donanmış olarak, tüm geçmiş deneyimleriyle birlikte destansı bir maceraya atılıyor!",
+              "credits": [],
+              "disable_update": true,
+              "name": "Season 1",
+              "model_type": "season"
+            },
+            {
+              "_id": "64d8a9d57354a48fcedf1418",
+              "id": 3657,
+              "release_date": null,
+              "poster": "https://image.tmdb.org/t/p/original/kVHnRfj5c7rzetzMPlRQXEZRzkH.jpg",
+              "number": 2,
+              "title_id": 7350,
+              "anime9_id": 0,
+              "title_tmdb_id": null,
+              "allow_update": 1,
+              "created_at": "2022-03-14T12:25:35.000Z",
+              "updated_at": "2026-06-24T09:00:18.285Z",
+              "episode_count": 24,
+              "fully_synced": false,
+              "overview": null,
+              "credits": [],
+              "disable_update": true,
+              "name": "Season 2",
+              "model_type": "season"
+            },
+            {
+              "_id": "6a315de96083eb500efd8f01",
+              "id": 6269,
+              "release_date": "",
+              "poster": "https://image.tmdb.org/t/p/original/v69rtSsfvbxmMVqxP9KmdO6D4aI.jpg",
+              "number": 3,
+              "title_id": 7350,
+              "anime9_id": 0,
+              "title_tmdb_id": 0,
+              "allow_update": 1,
+              "created_at": null,
+              "episode_count": 11,
+              "fully_synced": false,
+              "overview": null,
+              "credits": [],
+              "disable_update": true,
+              "updated_at": "2026-06-23T14:30:18.868Z",
+              "__v": 0,
+              "name": "Season 3",
+              "model_type": "season"
+            }
+          ]
+        }
+      },
       {
         "_id": "6a9424f4b7bb2d74703861c8",
         "name": "Bölüm 10",
