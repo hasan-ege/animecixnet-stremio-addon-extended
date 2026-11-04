@@ -12,3 +12,9 @@ services:
         limits:
           cpus: '0.25'
           memory: 512M
+    # Log'lar en fazla 3 x 10 MB yer kaplar, eskiler otomatik silinir
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

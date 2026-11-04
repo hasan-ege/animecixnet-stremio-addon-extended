@@ -6,6 +6,7 @@ const { metaCache } = require('../lib/caches');
 const calendarService = require('../../../src/calendarService');
 const { formatEpisodeTitle, resolveReleaseDate } = require('../lib/format');
 const { findNextEpisode, formatNextEpisodeLine } = require('../lib/nextEpisode');
+const { buildCreditsMeta } = require('../lib/credits');
 
 const router = express.Router();
 
@@ -71,6 +72,7 @@ router.get(metaRoutes, async (req, res, next) => {
                 releaseInfo: find.year ? String(find.year) : (find.release_date ? String(find.release_date).substring(0, 4) : undefined),
                 poster: find.poster,
                 posterShape: 'poster',
+                ...buildCreditsMeta(find),
             };
 
             //series or movie check
