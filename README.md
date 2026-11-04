@@ -48,7 +48,7 @@ Eklentiyi Stremio'ya eklemek için aşağıdaki bağlantıları kullanabilirsini
 
 ### 🔗 Eklenti URL'leri
 
-Aşağıdaki `<SUNUCU_ADRESI>` kısmını kendi sunucunuzun adresiyle (ör. ngrok/Cloudflare tünel alan adı veya `192.168.1.50:7000`) değiştirin:
+Aşağıdaki `<SUNUCU_ADRESI>` kısmını kendi sunucunuzun adresiyle (ör. Cloudflare tünel alan adı veya `192.168.1.50:7000`) değiştirin:
 
 | Yöntem | Bağlantı | Açıklama |
 |---|---|---|
@@ -60,7 +60,7 @@ Aşağıdaki `<SUNUCU_ADRESI>` kısmını kendi sunucunuzun adresiyle (ör. ngro
 > [!TIP]
 > `https://<SUNUCU_ADRESI>` adresini tarayıcınızda açtığınızda eklenti otomatik olarak Stremio'ya yönlenir. Açılmazsa sayfadaki **"Stremio ile Kur"** butonuna tıklayabilirsiniz.
 >
-> Docker Compose ile ngrok kullanıyorsanız `.env` içine `NGROK_AUTHTOKEN` ve sabit alan adınızı `NGROK_DOMAIN` olarak yazın.
+> Docker Compose, `cloudflared` ile rastgele bir `*.trycloudflare.com` adresi açar; adresi `docker logs animecix-cloudflared` çıktısında bulabilirsiniz.
 
 ---
 
@@ -153,7 +153,7 @@ Gereksinim: **Node.js 18+**
 ├── index.js                  # Express sunucusu, Stremio rota tanımları, otomatik yönlendirici
 ├── manifest.js               # Stremio Addon manifestosu (kataloglar, türler, versiyon)
 ├── header.js                 # API istekleri için yapılandırılmış başlıklar
-├── docker-compose.yml        # Addon ve Ngrok statik tünel konteyner orkestrasyonu
+├── docker-compose.yml        # Addon ve Cloudflare tünel konteyner orkestrasyonu
 ├── Dockerfile                # Konteyner derleme talimatları
 ├── .github/workflows/        # Portainer ve GitHub Container Registry (GHCR) CI/CD akışları
 └── src/

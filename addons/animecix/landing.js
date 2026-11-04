@@ -207,8 +207,7 @@ function getLandingHTML(manifest, baseUrl) {
         </div>
 
         <p class="hint">
-            Stremio otomatik açılmadıysa yukarıdaki <strong>Stremio ile Kur</strong> butonuna tıklayabilirsiniz.<br>
-            <span style="color: #c4b5fd; display: inline-block; margin-top: 6px;">💡 Stremio Web kullanıcıları: Tarayıcınızda ilk girişte ngrok güvenlik ekranı çıkarsa bir defaya mahsus <strong>"Visit Site"</strong> butonuna basınız.</span>
+            Stremio otomatik açılmadıysa yukarıdaki <strong>Stremio ile Kur</strong> butonuna tıklayabilirsiniz.
         </p>
     </div>
 
