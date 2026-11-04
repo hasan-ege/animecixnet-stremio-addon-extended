@@ -56,7 +56,7 @@ const CALENDAR_DAYS = [
 ];
 
 const catalogs = [
-    // 1. Yayın Takvimi (Diziler & Animeler)
+    // 1. Yayın Takvimi
     {
         type: "series",
         id: "animecix_takvim",
@@ -73,60 +73,26 @@ const catalogs = [
             }
         ]
     },
-    {
-        type: "anime",
-        id: "animecix_takvim",
-        name: "Yayın Takvimi",
-        extra: [
-            {
-                name: "genre",
-                isRequired: false,
-                options: CALENDAR_DAYS
-            },
-            {
-                name: "search",
-                isRequired: false
-            }
-        ]
-    },
 
-    // 2. Son Çıkanlar (Diziler & Animeler)
+    // 2. Son Çıkanlar
     {
         type: "series",
         id: "animecix_son_cikanlar",
         name: "AnimeciX - Son Çıkanlar",
         extra: [{ name: "search", isRequired: false }]
     },
-    {
-        type: "anime",
-        id: "animecix_son_cikanlar",
-        name: "AnimeciX - Son Çıkanlar",
-        extra: [{ name: "search", isRequired: false }]
-    },
 
-    // 3. Sezonun İncileri (Diziler & Animeler)
+    // 3. Sezonun İncileri
     {
         type: "series",
         id: "animecix_sezonun_incileri",
         name: "AnimeciX - Sezonun İncileri",
         extra: [{ name: "search", isRequired: false }]
     },
-    {
-        type: "anime",
-        id: "animecix_sezonun_incileri",
-        name: "AnimeciX - Sezonun İncileri",
-        extra: [{ name: "search", isRequired: false }]
-    },
 
-    // 4. En Yüksek Puanlılar (Diziler & Animeler)
+    // 4. En Yüksek Puanlılar
     {
         type: "series",
-        id: "animecix_en_iyiler",
-        name: "AnimeciX - En Yüksek Puanlılar",
-        extra: [{ name: "search", isRequired: false }]
-    },
-    {
-        type: "anime",
         id: "animecix_en_iyiler",
         name: "AnimeciX - En Yüksek Puanlılar",
         extra: [{ name: "search", isRequired: false }]
@@ -147,9 +113,11 @@ const catalogs = [
         type: "anime",
         id: "animecix",
         name: "AnimeciX Animeleri",
+        // genre zorunlu: Stremio bu kataloğu ana sayfada göstermez (Diziler ile çift görünmesin),
+        // sadece Keşfet > Anime sekmesinde tür seçilerek açılır
         extra: [
             { name: "search", isRequired: false },
-            { name: "genre", isRequired: false, options: GENRES },
+            { name: "genre", isRequired: true, options: GENRES },
             { name: "skip", isRequired: false }
         ]
     },
@@ -169,7 +137,7 @@ const catalogs = [
 
 const manifest = {
     id: 'animecix-stremio-addon',
-    version: '1.4.2',
+    version: '1.5.0',
     name: 'AnimeciX',
     description: "AnimeciX'ten türkçe altyazılı animeleri stremionuza getirir.",
     contactEmail: "eyup.elitass@gmail.com",
