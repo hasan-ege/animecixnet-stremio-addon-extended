@@ -42,12 +42,18 @@ async function ListVideos(list) {
             return values;
         }
 
-        for (let video of list) {
+        // Tau Video API çağrıları paralel yapılır; sonuçlar kaynak sırasını korur
+        const tauLinks = await Promise.all(list.map(video => {
+            if (String(video.name || '').trim().toLowerCase() !== "tau video") return null;
+            const embedId = String(video.url || '').replace("https://tau-video.xyz/embed/", "");
+            return tauvideoapi.VideoApi(embedId);
+        }));
+
+        for (const [i, video] of list.entries()) {
             video.name = String(video.name || '').trim().toLowerCase();
             switch (video.name) {
                 case "tau video":
-                    var embedId = String(video.url || '').replace("https://tau-video.xyz/embed/", "")
-                    var links = await tauvideoapi.VideoApi(embedId);
+                    var links = tauLinks[i];
                     if (links && Array.isArray(links.urls)) {
                         links.urls.forEach(video2 => {
                             var size = Number(video2.size) / 1024000 || 0;

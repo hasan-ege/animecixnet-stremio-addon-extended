@@ -3,7 +3,7 @@ const header = require('../header');
 const NodeCache = require('node-cache');
 const { signer } = require('./signer');
 
-const episodeCache = new NodeCache({ stdTTL: 12 * 60 * 60, checkperiod: 300 }); // 12 saat önbellek
+const episodeCache = new NodeCache({ stdTTL: 3 * 60, checkperiod: 60 }); // 3 dakika önbellek (anlık yeni bölüm tespiti)
 
 /**
  * AnimeciX resmi sezon API'si üzerinden o sezondaki tüm bölümlerin
@@ -28,7 +28,8 @@ async function getOfficialSeasonEpisodes(titleId, seasonNum) {
                     title: ep.name || null,
                     description: ep.description || null,
                     thumbnail: ep.poster || null,
-                    poster: ep.poster || null
+                    poster: ep.poster || null,
+                    released: ep.release_date || null
                 });
             }
         });
@@ -55,7 +56,8 @@ async function getOfficialSeasonEpisodes(titleId, seasonNum) {
                             title: ep.name || null,
                             description: ep.description || null,
                             thumbnail: ep.poster || null,
-                            poster: ep.poster || null
+                            poster: ep.poster || null,
+                            released: ep.release_date || null
                         });
                     }
                 });
@@ -108,11 +110,16 @@ async function getAnimecixEpisodes(titleId) {
         // Her (season, episode) için video thumbnail'larını ve aday episode_id'leri topla
         const epCandidates = new Map(); // key -> Set of episode_ids
         const thumbMap = new Map(); // key -> thumbnail
+        const uploadMap = new Map(); // key -> ilk video yükleme tarihi (bölüm tarihi yoksa yayın tarihi yerine)
 
         for (const v of allVideos) {
             if (!v.episode_num) continue;
             const season = v.season_num || 1;
             const key = `${season}-${v.episode_num}`;
+
+            if (v.created_at && (!uploadMap.has(key) || v.created_at < uploadMap.get(key))) {
+                uploadMap.set(key, v.created_at);
+            }
 
             if (v.thumbnail && !v.thumbnail.includes('random') && !v.thumbnail.includes('null')) {
                 if (!thumbMap.has(key)) thumbMap.set(key, v.thumbnail);
@@ -185,14 +192,16 @@ async function getAnimecixEpisodes(titleId) {
                     title: foundData.name,
                     description: foundData.description,
                     poster: foundData.poster,
-                    thumbnail: foundData.poster || thumbnail
+                    thumbnail: foundData.poster || thumbnail,
+                    released: uploadMap.get(key) || null
                 });
             } else if (thumbnail) {
                 map.set(key, {
                     title: null,
                     description: null,
                     poster: null,
-                    thumbnail: thumbnail
+                    thumbnail: thumbnail,
+                    released: uploadMap.get(key) || null
                 });
             }
         }
@@ -341,6 +350,7 @@ async function resolveEpisodesMetadata(find) {
             let title = null;
             let thumbnail = null;
             let description = null;
+            let released = null;
 
             // 1. ÖNCELİK: AnimeciX Resmi Sezon Veritabanı
             if (officialMap.has(key)) {
@@ -349,6 +359,7 @@ async function resolveEpisodesMetadata(find) {
                 if (off.thumbnail) thumbnail = off.thumbnail;
                 else if (off.poster) thumbnail = off.poster;
                 if (off.description) description = off.description;
+                if (off.released) released = off.released;
             }
 
             // 2. Yedek: AnimeciX Video Yüklemeleri Veritabanı
@@ -357,6 +368,9 @@ async function resolveEpisodesMetadata(find) {
                 if (cix.title) title = cix.title;
                 if (!thumbnail) thumbnail = cix.poster || cix.thumbnail;
                 if (!description && cix.description) description = cix.description;
+            }
+            if (!released && cixVideosMap.has(key)) {
+                released = cixVideosMap.get(key).released || null;
             }
 
             // 3. Özel / OVA Bölümleri
@@ -386,7 +400,7 @@ async function resolveEpisodesMetadata(find) {
                 }
             }
 
-            return { title, thumbnail, description };
+            return { title, thumbnail, description, released };
         }
     };
 

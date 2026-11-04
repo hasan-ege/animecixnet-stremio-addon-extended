@@ -2,3 +2,5 @@ node_modules/
 hasan*
 *.key
 *.pub
+.env
+static/subs/

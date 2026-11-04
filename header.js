@@ -1,5 +1,10 @@
 require("dotenv").config();
 
+// .env eksikse eklenti çalışmaya devam etsin diye varsayılan değerler
+process.env.API_HOST = process.env.API_HOST || "https://animecix.tv/secure";
+process.env.SUBTITLEAI_URL = process.env.SUBTITLEAI_URL || "https://tau-video.xyz";
+process.env.USERAGENT = process.env.USERAGENT || "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+
 const header = {
     'Content-Type': "application/json",
     "Referer": "https://animecix.tv/",

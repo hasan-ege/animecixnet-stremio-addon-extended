@@ -46,17 +46,21 @@
 
 Eklentiyi Stremio'ya eklemek için aşağıdaki bağlantıları kullanabilirsiniz:
 
-### 🔗 Canlı Eklenti URL'leri
+### 🔗 Eklenti URL'leri
+
+Aşağıdaki `<SUNUCU_ADRESI>` kısmını kendi sunucunuzun adresiyle (ör. ngrok/Cloudflare tünel alan adı veya `192.168.1.50:7000`) değiştirin:
 
 | Yöntem | Bağlantı | Açıklama |
 |---|---|---|
-| **🌐 Tek Tıkla Kurulum (Önerilen)** | [https://nineteen-unwritten-similarly.ngrok-free.dev](https://nineteen-unwritten-similarly.ngrok-free.dev) | Tarayıcıda açıldığında Stremio uygulamasını otomatik tetikler ve kurar |
-| **🎬 Stremio Protokolü** | [stremio://nineteen-unwritten-similarly.ngrok-free.dev/manifest.json](stremio://nineteen-unwritten-similarly.ngrok-free.dev/manifest.json) | Masaüstü veya mobil Stremio uygulamasını doğrudan başlatır |
-| **🌍 Stremio Web** | [Stremio Web'de Aç ve Kur](https://web.stremio.com/#/addons?addon=https%3A%2F%2Fnineteen-unwritten-similarly.ngrok-free.dev%2Fmanifest.json) | Tarayıcı tabanlı Stremio Web oynatıcısına doğrudan ekler |
-| **📋 Manifest JSON URL** | `https://nineteen-unwritten-similarly.ngrok-free.dev/manifest.json` | Stremio arama çubuğuna yapıştırarak ekleyebilirsiniz |
+| **🌐 Tek Tıkla Kurulum (Önerilen)** | `https://<SUNUCU_ADRESI>` | Tarayıcıda açıldığında Stremio uygulamasını otomatik tetikler ve kurar |
+| **🎬 Stremio Protokolü** | `stremio://<SUNUCU_ADRESI>/manifest.json` | Masaüstü veya mobil Stremio uygulamasını doğrudan başlatır |
+| **🌍 Stremio Web** | `https://web.stremio.com/#/addons?addon=https%3A%2F%2F<SUNUCU_ADRESI>%2Fmanifest.json` | Tarayıcı tabanlı Stremio Web oynatıcısına doğrudan ekler |
+| **📋 Manifest JSON URL** | `https://<SUNUCU_ADRESI>/manifest.json` | Stremio arama çubuğuna yapıştırarak ekleyebilirsiniz |
 
 > [!TIP]
-> `https://nineteen-unwritten-similarly.ngrok-free.dev` adresini tarayıcınızda açtığınızda eklenti otomatik olarak Stremio'ya yönlenir. Açılmazsa sayfadaki **"Stremio ile Kur"** butonuna tıklayabilirsiniz.
+> `https://<SUNUCU_ADRESI>` adresini tarayıcınızda açtığınızda eklenti otomatik olarak Stremio'ya yönlenir. Açılmazsa sayfadaki **"Stremio ile Kur"** butonuna tıklayabilirsiniz.
+>
+> Docker Compose ile ngrok kullanıyorsanız `.env` içine `NGROK_AUTHTOKEN` ve sabit alan adınızı `NGROK_DOMAIN` olarak yazın.
 
 ---
 
@@ -139,7 +143,7 @@ Gereksinim: **Node.js 18+**
 | `API_HOST` | `https://animecix.tv/secure` | AnimeciX API adresi |
 | `SUBTITLEAI_URL`| `https://tau-video.xyz` | Altyazı ve video kaynak çözümleme servisi |
 | `USERAGENT` | Chrome User Agent | İsteklerde kullanılan tarayıcı kimliği |
-| `DISCORD_RPC_ENABLED` | `true` | Discord Rich Presence etkinleştirme |
+| `ADMIN_TOKEN` | _(boş)_ | Tanımlıysa `/stats` panelindeki "Sıfırla" yalnızca `/stats?token=<ADMIN_TOKEN>` ile çalışır |
 
 ---
 
@@ -182,12 +186,12 @@ Eklenti, bağlanan kullanıcıları ve anlık HTTP isteklerini gerçek zamanlı 
   ```
 
 - **Canlı Web Arayüzü & İstatistik Paneli (Dashboard UI):**
-  `https://nineteen-unwritten-similarly.ngrok-free.dev/stats` (veya yerelde `http://localhost:7000/stats`) adresini herhangi bir tarayıcıda açtığınızda; sayfa yenilemeye gerek kalmadan **SSE (Server-Sent Events) ile anlık akan** görsel panel açılır:
+  `https://<SUNUCU_ADRESI>/stats` (veya yerelde `http://localhost:7000/stats`) adresini herhangi bir tarayıcıda açtığınızda; sayfa yenilemeye gerek kalmadan **SSE (Server-Sent Events) ile anlık akan** görsel panel açılır:
   - 👥 **Anlık Aktif Kullanıcılar** (Son 1 dk & 5 dk)
   - 📱 **Bağlı Cihaz Dağılımı** (Android, Windows, Smart TV, Web, iOS, Linux)
   - 🎬 **Son Yapılan Eylemler** (Hangi animenin izlendiği, takvim gezintisi veya arama)
   - ⚡ **Canlı İstek Akışı (Feed)** & Sistem RAM / Uptime monitörü
-  - 📋 Ham JSON API çıktısı için: `https://nineteen-unwritten-similarly.ngrok-free.dev/api/stats` veya `/stats?json=true`
+  - 📋 Ham JSON API çıktısı için: `https://<SUNUCU_ADRESI>/api/stats` veya `/stats?json=true`
 
 ---
 

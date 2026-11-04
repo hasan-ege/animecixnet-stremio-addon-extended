@@ -1354,8 +1354,15 @@ function getStatsHTML(baseUrl) {
             try {
                 const res = await fetch('/api/stats/clear', {
                     method: 'POST',
-                    headers: { 'ngrok-skip-browser-warning': 'true' }
+                    headers: {
+                        'ngrok-skip-browser-warning': 'true',
+                        'X-Admin-Token': new URLSearchParams(location.search).get('token') || ''
+                    }
                 });
+                if (res.status === 403) {
+                    alert('Sıfırlamak için yetkiniz yok. Sayfayı /stats?token=ADMIN_TOKEN ile açın.');
+                    return;
+                }
                 if (res.ok) {
                     const data = await res.json();
                     knownUsers.clear();

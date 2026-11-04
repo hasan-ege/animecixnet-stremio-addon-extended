@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
     command:
       - "http"
-      - "--url=nineteen-unwritten-similarly.ngrok-free.dev"
+      - "--url=${NGROK_DOMAIN}"
       - "animecix-addon:7000"
     environment:
       - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}

@@ -21,12 +21,17 @@ function saveKnownTitle(titleObj) {
     }
 }
 
+// AnimeciX arama yolu boşluk yerine tire bekler; özel karakterler (/, ?, #) URL'yi bozmasın
+function toSearchSlug(name) {
+    return encodeURIComponent(String(name).trim().replace(/\s+/g, "-"));
+}
+
 async function SearchAnime(name) {
     var values = [];
-    name = String(name).replace(" ", "-");
+    name = toSearchSlug(name);
     try {
         await axios.get(`${process.env.API_HOST}/search/${name}?limit=200`, { headers: header }).then((value) => {
-            if (value && value.status == 200 && value.statusText == "OK") {
+            if (value && value.status == 200) {
                 if (value && typeof (value.data.results) !== "undefined") {
                     values = value.data.results;
                     values.forEach(item => saveKnownTitle(item));
@@ -158,10 +163,10 @@ async function FindAnimeDetail(id) {
 
 async function FindAnimeId(name, _id) {
     var values;
-    name = String(name).replace(" ", "-");
+    name = toSearchSlug(name);
     try {
         await axios.get(`${process.env.API_HOST}/search/${name}?limit=200`, { headers: header }).then((value) => {
-            if (value && value.status == 200 && value.statusText == "OK") {
+            if (value && value.status == 200 && Array.isArray(value.data.results)) {
                 for (const element of value.data.results) {
                     if (element._id === _id) {
                         values = element.id;
