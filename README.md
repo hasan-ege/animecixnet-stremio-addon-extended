@@ -48,7 +48,7 @@ Eklentiyi Stremio'ya eklemek için aşağıdaki bağlantıları kullanabilirsini
 
 ### 🔗 Eklenti URL'leri
 
-Aşağıdaki `<SUNUCU_ADRESI>` kısmını kendi sunucunuzun adresiyle (ör. Cloudflare tünel alan adı veya `192.168.1.50:7000`) değiştirin:
+Aşağıdaki `<SUNUCU_ADRESI>` kısmını kendi sunucunuzun adresiyle (ör. Tailscale Funnel adresi `cihaz.tailnet.ts.net` veya yerel ağda `192.168.1.50:7000`) değiştirin:
 
 | Yöntem | Bağlantı | Açıklama |
 |---|---|---|
@@ -60,7 +60,9 @@ Aşağıdaki `<SUNUCU_ADRESI>` kısmını kendi sunucunuzun adresiyle (ör. Clou
 > [!TIP]
 > `https://<SUNUCU_ADRESI>` adresini tarayıcınızda açtığınızda eklenti otomatik olarak Stremio'ya yönlenir. Açılmazsa sayfadaki **"Stremio ile Kur"** butonuna tıklayabilirsiniz.
 >
-> Docker Compose, `cloudflared` ile rastgele bir `*.trycloudflare.com` adresi açar; adresi `docker logs animecix-cloudflared` çıktısında bulabilirsiniz.
+> **Sabit ve herkese açık adres (Tailscale Funnel):** Sunucuda Tailscale kuruluysa, yönetim panelinden Funnel'ı etkinleştirip
+> `sudo tailscale funnel --bg 7000` komutunu bir kez çalıştırın. Eklenti VPN gerektirmeden `https://<cihaz>.<tailnet>.ts.net`
+> adresinden erişilebilir olur; ayar yeniden başlatmalarda korunur. `.env` içindeki `HOSTING_URL`'i bu adres yapın.
 
 ---
 
@@ -153,7 +155,7 @@ Gereksinim: **Node.js 18+**
 ├── index.js                  # Express sunucusu, Stremio rota tanımları, otomatik yönlendirici
 ├── manifest.js               # Stremio Addon manifestosu (kataloglar, türler, versiyon)
 ├── header.js                 # API istekleri için yapılandırılmış başlıklar
-├── docker-compose.yml        # Addon ve Cloudflare tünel konteyner orkestrasyonu
+├── docker-compose.yml        # Addon konteyner tanımı
 ├── Dockerfile                # Konteyner derleme talimatları
 ├── .github/workflows/        # Portainer ve GitHub Container Registry (GHCR) CI/CD akışları
 └── src/

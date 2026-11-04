@@ -12,16 +12,3 @@ services:
         limits:
           cpus: '0.25'
           memory: 512M
-
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    container_name: animecix-cloudflared
-    restart: unless-stopped
-    command:
-      - "tunnel"
-      - "--no-autoupdate"
-      - "--url"
-      - "http://animecix-addon:7000"
-    depends_on:
-      - animecix-addon
-
