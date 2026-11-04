@@ -3,7 +3,9 @@ const searchVideo = require('../../../src/search');
 const episodeService = require('../../../src/episodeService');
 const { respond } = require('../lib/http');
 const { metaCache } = require('../lib/caches');
+const calendarService = require('../../../src/calendarService');
 const { formatEpisodeTitle, resolveReleaseDate } = require('../lib/format');
+const { findNextEpisode, formatNextEpisodeLine } = require('../lib/nextEpisode');
 
 const router = express.Router();
 
@@ -107,6 +109,25 @@ router.get(metaRoutes, async (req, res, next) => {
                         }
                     }
                 }
+
+                // Yayın takviminde varsa sıradaki bölümü açıklamaya ve "yakında" bölümü olarak listeye ekle
+                const next = findNextEpisode(calendarService.getCalendarDays(), findId);
+                if (next) {
+                    metaObj.description = `${formatNextEpisodeLine(next)}\n\n${metaObj.description}`.trim();
+                    const exists = metaObj.videos.some(v => v.season === next.season && v.episode === next.episode);
+                    if (!exists) {
+                        metaObj.videos.push({
+                            id: `0-${findId}-${next.season}-${next.episode}`,
+                            _id: findId,
+                            title: `Bölüm ${next.episode}`,
+                            released: next.date,
+                            season: next.season,
+                            episode: next.episode,
+                            thumbnail: find.backdrop || find.poster
+                        });
+                    }
+                }
+
                 if (metaObj.name && !metaObj.name.startsWith("Anime ")) {
                     metaCache.set(findId, metaObj);
                 }

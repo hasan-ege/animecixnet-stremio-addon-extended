@@ -7,6 +7,7 @@ const { resolveKitsuToAnimecix, resolveImdbToAnimecix } = require('../../../src/
 const { respond } = require('../lib/http');
 const { metaCache, subsCache } = require('../lib/caches');
 const { parseStreamId } = require('../lib/format');
+const { buildStreams } = require('../lib/streams');
 
 const axios = setupCache(Axios.create());
 
@@ -109,21 +110,7 @@ router.get(streamRoutes, async (req, res, next) => {
                 }
             }
 
-            streamLinks.forEach(element => {
-                if (element.support == "stremio") {
-                    stream.push({
-                        url: element.parseUrl,
-                        name: element.label + "\n" + element.subName,
-                        description: element.videoProvider + "\n" + element.size,
-                    });
-                } else {
-                    stream.push({
-                        externalUrl: element.url,
-                        name: "Animecix \n" + element.subName,
-                        description: element.videoProvider + "\n" + element.size,
-                    });
-                }
-            });
+            stream = buildStreams(streamLinks);
         }
 
         res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");

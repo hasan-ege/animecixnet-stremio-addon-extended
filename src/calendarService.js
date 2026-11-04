@@ -304,6 +304,7 @@ function initCalendarService() {
 
 module.exports = {
     initCalendarService,
+    getCalendarDays: () => calendarDays,
     fetchCalendarData,
     getCatalogMetas,
     getTodayDayKey,
