@@ -1,6 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const { extractYoutubeId, buildCreditsMeta } = require('../addons/animecix/lib/credits');
+const { extractYoutubeId, buildCreditsMeta, toPhotoUrl } = require('../addons/animecix/lib/credits');
 
 test('extractYoutubeId: embed, watch ve kısa adresler', () => {
     assert.equal(extractYoutubeId('https://www.youtube.com/embed/Qx01pn9l-6g?enablejsapi=1&autoplay=1'), 'Qx01pn9l-6g');
@@ -42,4 +42,28 @@ test('buildCreditsMeta: kadro en fazla 10 kişi', () => {
 test('buildCreditsMeta: veri yoksa boş alan eklemez', () => {
     assert.deepEqual(buildCreditsMeta({ trailer: '', credits: [] }), {});
     assert.deepEqual(buildCreditsMeta(undefined), {});
+});
+
+test('toPhotoUrl: TMDB orijinal boyutu küçültür', () => {
+    assert.equal(toPhotoUrl('https://image.tmdb.org/t/p/original/abc.jpg'), 'https://image.tmdb.org/t/p/w185/abc.jpg');
+    assert.equal(toPhotoUrl(null), undefined);
+});
+
+test('buildCreditsMeta: Nuvio için fotoğraflı app_extras', () => {
+    const meta = buildCreditsMeta({
+        credits: [
+            { name: 'Yumi Uchiyama', poster: 'https://image.tmdb.org/t/p/original/Jv.jpg', tmdb_id: 1321070, pivot: { character: 'Rudeus' } },
+            { name: 'Yumi Uchiyama', poster: null, pivot: { character: 'Başka Rol' } },
+            { name: 'Fotoğrafsız', poster: null, pivot: { character: 'Eris' } },
+            { name: 'Manabu Okamoto', poster: 'https://image.tmdb.org/t/p/original/Mo.jpg', pivot: { department: 'directing', job: 'director' } },
+            { name: 'Yazar', pivot: { department: 'writing', job: 'novel' } }
+        ]
+    });
+    assert.deepEqual(meta.app_extras.cast, [
+        { name: 'Yumi Uchiyama', character: 'Rudeus', photo: 'https://image.tmdb.org/t/p/w185/Jv.jpg', tmdbId: 1321070 },
+        { name: 'Fotoğrafsız', character: 'Eris' }
+    ]);
+    assert.deepEqual(meta.app_extras.directors, [{ name: 'Manabu Okamoto', photo: 'https://image.tmdb.org/t/p/w185/Mo.jpg' }]);
+    assert.deepEqual(meta.app_extras.writers, [{ name: 'Yazar' }]);
+    assert.deepEqual(meta.cast, ['Yumi Uchiyama', 'Fotoğrafsız']);
 });

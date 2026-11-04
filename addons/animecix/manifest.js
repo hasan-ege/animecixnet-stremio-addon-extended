@@ -137,7 +137,7 @@ const catalogs = [
 
 const manifest = {
     id: 'animecix-stremio-addon',
-    version: '1.7.0',
+    version: '1.7.1',
     name: 'AnimeciX',
     description: "AnimeciX'ten türkçe altyazılı animeleri stremionuza getirir.",
     contactEmail: "eyup.elitass@gmail.com",
