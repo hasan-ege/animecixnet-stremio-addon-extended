@@ -46,19 +46,19 @@
 
 Eklentiyi Stremio'ya eklemek için aşağıdaki bağlantıları kullanabilirsiniz:
 
-### 🔗 Eklenti URL'leri
-
-Aşağıdaki `<SUNUCU_ADRESI>` kısmını kendi sunucunuzun adresiyle (ör. Tailscale Funnel adresi `cihaz.tailnet.ts.net` veya yerel ağda `192.168.1.50:7000`) değiştirin:
+### 🔗 Canlı Eklenti URL'leri
 
 | Yöntem | Bağlantı | Açıklama |
 |---|---|---|
-| **🌐 Tek Tıkla Kurulum (Önerilen)** | `https://<SUNUCU_ADRESI>` | Tarayıcıda açıldığında Stremio uygulamasını otomatik tetikler ve kurar |
-| **🎬 Stremio Protokolü** | `stremio://<SUNUCU_ADRESI>/manifest.json` | Masaüstü veya mobil Stremio uygulamasını doğrudan başlatır |
-| **🌍 Stremio Web** | `https://web.stremio.com/#/addons?addon=https%3A%2F%2F<SUNUCU_ADRESI>%2Fmanifest.json` | Tarayıcı tabanlı Stremio Web oynatıcısına doğrudan ekler |
-| **📋 Manifest JSON URL** | `https://<SUNUCU_ADRESI>/manifest.json` | Stremio arama çubuğuna yapıştırarak ekleyebilirsiniz |
+| **🌐 Tek Tıkla Kurulum (Önerilen)** | [https://pi.tail817ad6.ts.net](https://pi.tail817ad6.ts.net) | Tarayıcıda açıldığında Stremio uygulamasını otomatik tetikler ve kurar |
+| **🎬 Stremio Protokolü** | [stremio://pi.tail817ad6.ts.net/manifest.json](stremio://pi.tail817ad6.ts.net/manifest.json) | Masaüstü veya mobil Stremio uygulamasını doğrudan başlatır |
+| **🌍 Stremio Web** | [Stremio Web'de Aç ve Kur](https://web.stremio.com/#/addons?addon=https%3A%2F%2Fpi.tail817ad6.ts.net%2Fmanifest.json) | Tarayıcı tabanlı Stremio Web oynatıcısına doğrudan ekler |
+| **📋 Manifest JSON URL** | `https://pi.tail817ad6.ts.net/manifest.json` | Stremio arama çubuğuna yapıştırarak ekleyebilirsiniz |
 
 > [!TIP]
-> `https://<SUNUCU_ADRESI>` adresini tarayıcınızda açtığınızda eklenti otomatik olarak Stremio'ya yönlenir. Açılmazsa sayfadaki **"Stremio ile Kur"** butonuna tıklayabilirsiniz.
+> [https://pi.tail817ad6.ts.net](https://pi.tail817ad6.ts.net) adresini tarayıcınızda açtığınızda eklenti otomatik olarak Stremio'ya yönlenir. Açılmazsa sayfadaki **"Stremio ile Kur"** butonuna tıklayabilirsiniz.
+>
+> Kendi sunucunuzda çalıştırıyorsanız bu adresi kendi adresinizle (ör. yerel ağda `http://192.168.1.50:7000`) değiştirin.
 >
 > **Sabit ve herkese açık adres (Tailscale Funnel):** Sunucuda Tailscale kuruluysa, yönetim panelinden Funnel'ı etkinleştirip
 > `sudo tailscale funnel --bg 7000` komutunu bir kez çalıştırın. Eklenti VPN gerektirmeden `https://<cihaz>.<tailnet>.ts.net`
@@ -188,12 +188,12 @@ Eklenti, bağlanan kullanıcıları ve anlık HTTP isteklerini gerçek zamanlı 
   ```
 
 - **Canlı Web Arayüzü & İstatistik Paneli (Dashboard UI):**
-  `https://<SUNUCU_ADRESI>/stats` (veya yerelde `http://localhost:7000/stats`) adresini herhangi bir tarayıcıda açtığınızda; sayfa yenilemeye gerek kalmadan **SSE (Server-Sent Events) ile anlık akan** görsel panel açılır:
+  `https://pi.tail817ad6.ts.net/stats` (veya yerelde `http://localhost:7000/stats`) adresini herhangi bir tarayıcıda açtığınızda; sayfa yenilemeye gerek kalmadan **SSE (Server-Sent Events) ile anlık akan** görsel panel açılır:
   - 👥 **Anlık Aktif Kullanıcılar** (Son 1 dk & 5 dk)
   - 📱 **Bağlı Cihaz Dağılımı** (Android, Windows, Smart TV, Web, iOS, Linux)
   - 🎬 **Son Yapılan Eylemler** (Hangi animenin izlendiği, takvim gezintisi veya arama)
   - ⚡ **Canlı İstek Akışı (Feed)** & Sistem RAM / Uptime monitörü
-  - 📋 Ham JSON API çıktısı için: `https://<SUNUCU_ADRESI>/api/stats` veya `/stats?json=true`
+  - 📋 Ham JSON API çıktısı için: `https://pi.tail817ad6.ts.net/api/stats` veya `/stats?json=true`
 
 ---
 
